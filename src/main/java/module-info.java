@@ -4,6 +4,7 @@ module com.bearzwebworks.beardb {
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
+    requires java.sql;
 
     opens com.bearzwebworks.beardb to javafx.fxml;
     exports com.bearzwebworks.beardb;
