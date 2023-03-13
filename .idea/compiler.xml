@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="bearDB" target="0" />
+      <module name="bearDB" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
