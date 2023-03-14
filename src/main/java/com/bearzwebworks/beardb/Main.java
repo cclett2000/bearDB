@@ -1,10 +1,12 @@
 package com.bearzwebworks.beardb;
 
+import com.bearzwebworks.beardb.db.handler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Main extends javafx.application.Application {
     @Override
@@ -18,6 +20,10 @@ public class Main extends javafx.application.Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        //launch();
+        handler.initDatabase();
+        handler.addCustomer("CompName", "Address", "Tulsa", "OK", "55203", "US", "Comments");
+        handler.getCustomerData();
+        handler.getMerchantData();
     }
 }
