@@ -1,0 +1,137 @@
+/**
+ * Copyright (c) 2023 Charles Lett Jr. All rights reserved.
+ *
+ * This code is the property of Charles Lett Jr. and may not be used or distributed without permission.
+ * Unauthorized use or distribution of this code may result in legal action.
+*/
+
+package com.bearzwebworks.beardb.db.model;
+
+public class Contact {
+    private int CustomerID;
+    private String ContactTitle;
+    private String Name;
+    private String EmailAddress;
+    private String Alias;
+    private String PhoneNumber;
+    private String Extension;
+    private String FaxNumber;
+    private String HomeNumber;
+    private String CellNumber;
+    private String TollFree;
+    private String EmailPass;
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "CustomerID=" + CustomerID +
+                ", ContactTitle='" + ContactTitle + '\'' +
+                ", Name='" + Name + '\'' +
+                ", EmailAddress='" + EmailAddress + '\'' +
+                ", Alias='" + Alias + '\'' +
+                ", PhoneNumber='" + PhoneNumber + '\'' +
+                ", Extension='" + Extension + '\'' +
+                ", FaxNumber='" + FaxNumber + '\'' +
+                ", HomeNumber='" + HomeNumber + '\'' +
+                ", CellNumber='" + CellNumber + '\'' +
+                ", TollFree='" + TollFree + '\'' +
+                ", EmailPass='" + EmailPass + '\'' +
+                '}';
+    }
+
+    public int getCustomerID() {
+        return CustomerID;
+    }
+
+    public void setCustomerID(int customerID) {
+        CustomerID = customerID;
+    }
+
+    public String getContactTitle() {
+        return ContactTitle;
+    }
+
+    public void setContactTitle(String contactTitle) {
+        ContactTitle = contactTitle;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public String getEmailAddress() {
+        return EmailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        EmailAddress = emailAddress;
+    }
+
+    public String getAlias() {
+        return Alias;
+    }
+
+    public void setAlias(String alias) {
+        Alias = alias;
+    }
+
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        PhoneNumber = phoneNumber;
+    }
+
+    public String getExtension() {
+        return Extension;
+    }
+
+    public void setExtension(String extension) {
+        Extension = extension;
+    }
+
+    public String getFaxNumber() {
+        return FaxNumber;
+    }
+
+    public void setFaxNumber(String faxNumber) {
+        FaxNumber = faxNumber;
+    }
+
+    public String getHomeNumber() {
+        return HomeNumber;
+    }
+
+    public void setHomeNumber(String homeNumber) {
+        HomeNumber = homeNumber;
+    }
+
+    public String getCellNumber() {
+        return CellNumber;
+    }
+
+    public void setCellNumber(String cellNumber) {
+        CellNumber = cellNumber;
+    }
+
+    public String getTollFree() {
+        return TollFree;
+    }
+
+    public void setTollFree(String tollFree) {
+        TollFree = tollFree;
+    }
+
+    public String getEmailPass() {
+        return EmailPass;
+    }
+
+    public void setEmailPass(String emailPass) {
+        EmailPass = emailPass;
+    }
+}

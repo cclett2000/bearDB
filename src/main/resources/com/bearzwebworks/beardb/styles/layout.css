@@ -1,4 +1,11 @@
+/*
+  Copyright (c) 2023 Charles Lett Jr. All rights reserved.
+
+  This stylesheet is the property of Charles Lett Jr. and may not be used or distributed
+  without permission. Unauthorized use or distribution of this stylesheet may
+  result in legal action.
+*/
+
 .list-view .list-cell:even {
--fx-background-color: ;
 -fx-text-fill: black;
 }

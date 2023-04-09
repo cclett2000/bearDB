@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) 2023 Charles Lett Jr. All rights reserved.
+ *
+ * This code is the property of Charles Lett Jr. and may not be used or distributed without permission.
+ * Unauthorized use or distribution of this code may result in legal action.
+*/
+
 package com.bearzwebworks.beardb.db.model;
 
 public class Merchant {
@@ -25,10 +32,13 @@ public class Merchant {
     private String AgentBIN;
     private String AgentChain;
     private String AgentLocation;
+    private String MerchantLogin;
+    private String MerchantPass;
 
     @Override
     public String toString() {
-        return  "CustomerID=" + CustomerID +
+        return "Merchant{" +
+                "CustomerID=" + CustomerID +
                 ", ProjectID=" + ProjectID +
                 ", StoreName='" + StoreName + '\'' +
                 ", MerchantProvider='" + MerchantProvider + '\'' +
@@ -56,8 +66,6 @@ public class Merchant {
                 ", MerchantPass='" + MerchantPass + '\'' +
                 '}';
     }
-
-    private String MerchantLogin;
 
     public int getCustomerID() {
         return CustomerID;
@@ -266,6 +274,4 @@ public class Merchant {
     public void setMerchantPass(String merchantPass) {
         MerchantPass = merchantPass;
     }
-
-    private String MerchantPass;
 }
