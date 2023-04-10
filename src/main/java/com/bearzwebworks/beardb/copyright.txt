@@ -1,0 +1,24 @@
+--JAVA--
+/**
+ * Copyright (c) 2023 Charles Lett Jr. All rights reserved.
+ *
+ * This code is the property of Charles Lett Jr. and may not be used or distributed without permission.
+ * Unauthorized use or distribution of this code may result in legal action.
+*/
+
+--CSS--
+/*
+  Copyright (c) 2023 Charles Lett Jr. All rights reserved.
+
+  This stylesheet is the property of Charles Lett Jr. and may not be used or distributed
+  without permission. Unauthorized use or distribution of this stylesheet may
+  result in legal action.
+*/
+
+--XML--
+<!--
+Copyright (c) 2023 Charles Lett Jr. All rights reserved.
+
+This code is the property of Charles Lett Jr. and may not be used or distributed without permission.
+Unauthorized use or distribution of this code may result in legal action.
+-->
