@@ -66,7 +66,7 @@ Unauthorized use or distribution of this code may result in legal action.
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="220.0" layoutY="470.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country" wrappingWidth="201.9830722808838">
+                              <Text fill="WHITE" layoutX="220.0" layoutY="478.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country" wrappingWidth="201.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
@@ -76,16 +76,16 @@ Unauthorized use or distribution of this code may result in legal action.
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="479.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ZIP Code" wrappingWidth="91.98307228088379">
+                              <Text fill="WHITE" layoutX="479.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ZIP" wrappingWidth="91.98307228088379">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
                               <TextField fx:id="companyBillingField" layoutX="218.0" layoutY="210.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="companyCountryField" layoutX="218.0" layoutY="484.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="companyCountryField" layoutX="218.0" layoutY="492.0" prefHeight="27.0" prefWidth="396.0" />
                               <TextField fx:id="companyNameField" layoutX="218.0" layoutY="137.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="companyZipField" layoutX="479.0" layoutY="351.0" prefHeight="27.0" prefWidth="135.0" />
-                              <Text fill="WHITE" layoutX="218.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State" wrappingWidth="181.9830722808838">
+                              <TextField fx:id="companyZipField" layoutX="479.0" layoutY="354.0" prefHeight="27.0" prefWidth="135.0" />
+                              <Text fill="WHITE" layoutX="218.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State" wrappingWidth="181.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
@@ -95,7 +95,7 @@ Unauthorized use or distribution of this code may result in legal action.
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <TextField fx:id="companyStateField" layoutX="218.0" layoutY="409.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="companyStateField" layoutX="218.0" layoutY="417.0" prefHeight="27.0" prefWidth="396.0" />
                               <TextField fx:id="companyCityField" layoutX="218.0" layoutY="282.0" prefHeight="27.0" prefWidth="396.0" />
                               <Button fx:id="companyEditSaveButton" layoutX="376.0" layoutY="638.0" mnemonicParsing="false" onAction="#editCompanyButtonListener" prefHeight="37.0" prefWidth="80.0" text="Save">
                                  <font>
@@ -295,15 +295,15 @@ Unauthorized use or distribution of this code may result in legal action.
           </Tab>
         </tabs>
       </TabPane>
-      <TextArea fx:id="companyCommentsField" layoutX="12.0" layoutY="486.0" prefHeight="285.0" prefWidth="372.0" />
-      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="469.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments">
+      <TextArea fx:id="companyCommentsField" layoutX="12.0" layoutY="474.0" prefHeight="285.0" prefWidth="372.0" />
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments">
          <font>
             <Font name="DINPro-Medium" size="24.0" />
          </font>
       </Text>
       <Button fx:id="deleteCompanyButton" layoutX="328.0" layoutY="402.0" mnemonicParsing="false" onAction="#deleteCompanyButtonListener" text="Delete" />
       <Button fx:id="addCompanyButton" layoutX="261.0" layoutY="402.0" mnemonicParsing="false" onAction="#addCompanyButtonListener" prefHeight="27.0" prefWidth="56.0" text="Add" />
-      <Label fx:id="version" layoutX="12.0" layoutY="777.0" text="Version: " textFill="WHITE">
+      <Label fx:id="version" layoutX="12.0" layoutY="775.0" text="Version: " textFill="WHITE">
          <font>
             <Font name="DINPro-Medium" size="13.0" />
          </font>
