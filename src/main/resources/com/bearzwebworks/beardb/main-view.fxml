@@ -303,7 +303,7 @@ Unauthorized use or distribution of this code may result in legal action.
       </Text>
       <Button fx:id="deleteCompanyButton" layoutX="328.0" layoutY="402.0" mnemonicParsing="false" onAction="#deleteCompanyButtonListener" text="Delete" />
       <Button fx:id="addCompanyButton" layoutX="261.0" layoutY="402.0" mnemonicParsing="false" onAction="#addCompanyButtonListener" prefHeight="27.0" prefWidth="56.0" text="Add" />
-      <Label fx:id="version" layoutX="12.0" layoutY="781.0" text="Version: " textFill="WHITE">
+      <Label fx:id="version" layoutX="12.0" layoutY="777.0" text="Version: " textFill="WHITE">
          <font>
             <Font name="DINPro-Medium" size="13.0" />
          </font>

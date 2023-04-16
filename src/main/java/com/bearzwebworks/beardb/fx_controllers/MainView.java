@@ -68,6 +68,7 @@ public class MainView {
         });
     }
 
+    //region Company Logic
     @FXML
     /** LIST_CLICK - Logic for clicking on a company name in the listView */
     protected void companyItemClicked(){
@@ -237,8 +238,8 @@ public class MainView {
                     temp.getCompanyName(),
                     temp.getBilling(),
                     temp.getCity(),
-                    temp.getZIP(),
                     temp.getState(),
+                    temp.getZIP(),
                     temp.getCountry(),
                     temp.getComments());
 
@@ -249,4 +250,11 @@ public class MainView {
             System.out.println(methodTag + "No Company Selected, Can't Save");
         }
     }
+    //endregion
+
+    //region Project Logic
+    //endregion
+
+    //region Contact Logic
+    //endregion
 }
