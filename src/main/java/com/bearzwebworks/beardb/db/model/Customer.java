@@ -8,6 +8,7 @@
 package com.bearzwebworks.beardb.db.model;
 
 public class Customer {
+    private int customerID;
     private String CompanyName;
     private String Billing;
     private String City;
@@ -19,7 +20,8 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "CompanyName='" + CompanyName + '\'' +
+                "customerID=" + customerID +
+                ", CompanyName='" + CompanyName + '\'' +
                 ", Billing='" + Billing + '\'' +
                 ", City='" + City + '\'' +
                 ", State='" + State + '\'' +
@@ -27,6 +29,14 @@ public class Customer {
                 ", Country='" + Country + '\'' +
                 ", Comments='" + Comments + '\'' +
                 '}';
+    }
+
+    public int getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
     }
 
     public String getCompanyName() {

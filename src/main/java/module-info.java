@@ -10,4 +10,6 @@ module com.bearzwebworks.beardb {
     exports com.bearzwebworks.beardb;
     exports com.bearzwebworks.beardb.fx_controllers;
     opens com.bearzwebworks.beardb.fx_controllers to javafx.fxml;
+    exports com.bearzwebworks.beardb.db;
+    opens com.bearzwebworks.beardb.db to javafx.fxml;
 }

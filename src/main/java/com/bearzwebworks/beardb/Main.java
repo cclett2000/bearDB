@@ -8,6 +8,7 @@
 package com.bearzwebworks.beardb;
 
 import com.bearzwebworks.beardb.db.dbLogic;
+import com.bearzwebworks.beardb.db.handler.customerHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -27,13 +28,12 @@ public class Main extends javafx.application.Application {
         scene.getStylesheets().add(String.valueOf(Main.class.getResource("styles/layout.css")));
         stage.setTitle("Bearz Company DB Manager");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
     public static void main(String[] args) {
+        //customerHandler.addCustomer("DELETEME", "Address", "Tulsa", "OK", "55203", "US", "Comments");
         launch();
-//        handler.addCustomer("CompName", "Address", "Tulsa", "OK", "55203", "US", "Comments");
-//        handler.getCustomerData();
-//        handler.getMerchantData();
     }
 }

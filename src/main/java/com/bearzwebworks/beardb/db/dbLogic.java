@@ -11,7 +11,7 @@ import java.sql.*;
 
 /** database function handler class */
 public class dbLogic {
-    private static final String DB_URL = "jdbc:sqlite:src/main/resources/com/bearzwebworks/beardb/db/webHosting_sqlite.db";
+    private static final String DB_URL = "jdbc:sqlite:src/main/resources/com/bearzwebworks/beardb/db/webhosting.sqlite";
 
     /** connect to db */
     public static Connection connect(String debugTag) {

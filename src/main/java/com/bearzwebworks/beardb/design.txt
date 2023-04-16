@@ -3,3 +3,5 @@ Pull all data using IDs
         > when adding contacts, projects add company index to data structure, this will allow query based on table/ID
 
 Date: use JavaFX date picker and see how to collect the date and store it
+
+Possibly use binary search tree to store contacts/projects

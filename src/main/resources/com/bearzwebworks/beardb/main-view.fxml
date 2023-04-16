@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
 Copyright (c) 2023 Charles Lett Jr. All rights reserved.
 
@@ -8,6 +9,7 @@ Unauthorized use or distribution of this code may result in legal action.
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
@@ -50,112 +52,167 @@ Unauthorized use or distribution of this code may result in legal action.
             <Font name="DINPro-Medium" size="24.0" />
          </font>
       </Text>
-      <ListView fx:id="companyList" layoutX="12.0" layoutY="58.0" onMouseClicked="#companyItemClicked" prefHeight="372.0" prefWidth="372.0" />
+      <ListView fx:id="companyListView" layoutX="12.0" layoutY="58.0" onMouseClicked="#companyItemClicked" prefHeight="340.0" prefWidth="372.0" />
       <TabPane blendMode="SRC_ATOP" layoutX="396.0" prefHeight="811.0" prefWidth="884.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
         <tabs>
+            <Tab text="Company Info">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="789.0" prefWidth="832.0">
+                           <children>
+                              <Text fill="WHITE" layoutX="218.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Billing" wrappingWidth="181.9830722808838">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="220.0" layoutY="470.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country" wrappingWidth="201.9830722808838">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="218.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="254.0">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="479.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ZIP Code" wrappingWidth="91.98307228088379">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="companyBillingField" layoutX="218.0" layoutY="210.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="companyCountryField" layoutX="218.0" layoutY="484.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="companyNameField" layoutX="218.0" layoutY="137.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="companyZipField" layoutX="479.0" layoutY="348.0" prefHeight="27.0" prefWidth="135.0" />
+                              <Text fill="WHITE" layoutX="218.0" layoutY="397.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State" wrappingWidth="181.9830722808838">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="218.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City" wrappingWidth="254.0">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="companyStateField" layoutX="218.0" layoutY="409.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="companyCityField" layoutX="218.0" layoutY="282.0" prefHeight="27.0" prefWidth="396.0" />
+                              <Button fx:id="companyEditSaveButton" layoutX="376.0" layoutY="638.0" mnemonicParsing="false" onAction="#editCompanyButtonListener" prefHeight="37.0" prefWidth="80.0" text="Save">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="18.0" />
+                                 </font>
+                              </Button>
+                              <Label layoutX="168.0" layoutY="686.0" prefHeight="18.0" text="Saving will also save any comments in the 'Comments' pane for the current company." textFill="WHITE">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
           <Tab closable="false" text="Project">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Pane layoutX="8.0" layoutY="14.0" prefHeight="800.0" prefWidth="846.0">
                            <children>
-                              <Text fill="WHITE" layoutX="437.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hosting Start Date" wrappingWidth="204.9830722808838">
+                              <Text fill="WHITE" layoutX="433.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hosting Start Date" wrappingWidth="204.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="642.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hosting End Date" wrappingWidth="170.9830722808838">
+                              <Text fill="WHITE" layoutX="638.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hosting End Date" wrappingWidth="170.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="435.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Type" wrappingWidth="153.9830722808838">
+                              <Text fill="WHITE" layoutX="431.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Type" wrappingWidth="153.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="435.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost" wrappingWidth="153.9830722808838">
+                              <Text fill="WHITE" layoutX="431.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost" wrappingWidth="153.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="642.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Design Cost" wrappingWidth="153.9830722808838">
+                              <Text fill="WHITE" layoutX="638.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Design Cost" wrappingWidth="153.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="642.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Domain Expiration" wrappingWidth="171.9830722808838">
+                              <Text fill="WHITE" layoutX="638.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Domain Expiration" wrappingWidth="171.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="437.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Web Address (URL)" wrappingWidth="201.9830722808838">
+                              <Text fill="WHITE" layoutX="433.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Web Address (URL)" wrappingWidth="201.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="436.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Address" wrappingWidth="181.9830722808838">
+                              <Text fill="WHITE" layoutX="432.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Address" wrappingWidth="181.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="434.0" layoutY="531.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Login" wrappingWidth="153.9830722808838">
+                              <Text fill="WHITE" layoutX="430.0" layoutY="527.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Login" wrappingWidth="153.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="438.0" layoutY="639.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Password" wrappingWidth="201.9830722808838">
+                              <Text fill="WHITE" layoutX="434.0" layoutY="635.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Password" wrappingWidth="201.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="17.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Username" wrappingWidth="254.0">
+                              <Text fill="WHITE" layoutX="13.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Username" wrappingWidth="254.0">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="16.0" layoutY="531.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Password" wrappingWidth="240.9830722808838">
+                              <Text fill="WHITE" layoutX="12.0" layoutY="527.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Password" wrappingWidth="240.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="17.0" layoutY="639.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Serial" wrappingWidth="210.9830722808838">
+                              <Text fill="WHITE" layoutX="13.0" layoutY="635.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Serial" wrappingWidth="210.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <DatePicker fx:id="hostStartDateField" layoutX="436.0" layoutY="82.0" />
-                              <DatePicker fx:id="hostEndDateField" layoutX="642.0" layoutY="82.0" />
-                              <Button layoutX="676.0" layoutY="739.0" mnemonicParsing="false" text="Save">
+                              <DatePicker fx:id="hostStartDateField" layoutX="432.0" layoutY="78.0" />
+                              <DatePicker fx:id="hostEndDateField" layoutX="638.0" layoutY="78.0" />
+                              <Button fx:id="projectSaveEditButton" layoutX="744.0" layoutY="735.0" mnemonicParsing="false" prefWidth="80.0" text="Save">
                                  <font>
                                     <Font name="DINPro-Medium" size="18.0" />
-                                 </font></Button>
-                              <Button layoutX="755.0" layoutY="739.0" mnemonicParsing="false" text="Delete">
-                                 <font>
-                                    <Font name="DINPro-Medium" size="18.0" />
-                                 </font></Button>
-                              <TextField fx:id="designCostField" layoutX="643.0" layoutY="256.0" prefHeight="27.0" prefWidth="188.0" />
-                              <TextField fx:id="costField" layoutX="435.0" layoutY="256.0" prefHeight="27.0" prefWidth="188.0" />
-                              <RadioButton fx:id="payTypeMonthlyRadBtn" layoutX="438.0" layoutY="176.0" mnemonicParsing="false" text="Monthly" textFill="WHITE">
+                                 </font>
+                              </Button>
+                              <TextField fx:id="designCostField" layoutX="639.0" layoutY="252.0" prefHeight="27.0" prefWidth="188.0" />
+                              <TextField fx:id="costField" layoutX="431.0" layoutY="252.0" prefHeight="27.0" prefWidth="188.0" />
+                              <RadioButton fx:id="payTypeMonthlyRadBtn" layoutX="434.0" layoutY="172.0" mnemonicParsing="false" text="Monthly" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </RadioButton>
-                              <RadioButton fx:id="payTypeYearlyRadBtn" layoutX="543.0" layoutY="176.0" mnemonicParsing="false" text="Yearly" textFill="WHITE">
+                              <RadioButton fx:id="payTypeYearlyRadBtn" layoutX="539.0" layoutY="172.0" mnemonicParsing="false" text="Yearly" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </RadioButton>
-                              <DatePicker fx:id="domainExpirationField" layoutX="643.0" layoutY="172.0" />
-                              <TextField fx:id="urlField" layoutX="435.0" layoutY="347.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wordpressAddressField" layoutX="436.0" layoutY="437.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wordpressLoginField" layoutX="435.0" layoutY="542.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wordpressPasswordField" layoutX="436.0" layoutY="653.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wooCommerceUsernameField" layoutX="17.0" layoutY="437.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wooCommercePasswordField" layoutX="16.0" layoutY="542.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wooCommerceSerialField" layoutX="17.0" layoutY="653.0" prefHeight="27.0" prefWidth="396.0" />
-                              <ListView fx:id="projectList" layoutX="16.0" layoutY="49.0" prefHeight="340.0" prefWidth="393.0" />
-                              <Text fill="WHITE" layoutX="17.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Project(s)" wrappingWidth="204.9830722808838">
+                              <DatePicker fx:id="domainExpirationField" layoutX="639.0" layoutY="168.0" />
+                              <TextField fx:id="urlField" layoutX="431.0" layoutY="343.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wordpressAddressField" layoutX="432.0" layoutY="433.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wordpressLoginField" layoutX="431.0" layoutY="538.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wordpressPasswordField" layoutX="432.0" layoutY="649.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wooCommerceUsernameField" layoutX="13.0" layoutY="433.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wooCommercePasswordField" layoutX="12.0" layoutY="538.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wooCommerceSerialField" layoutX="13.0" layoutY="649.0" prefHeight="27.0" prefWidth="396.0" />
+                              <ListView fx:id="projectList" layoutX="12.0" layoutY="45.0" prefHeight="340.0" prefWidth="393.0" />
+                              <Text fill="WHITE" layoutX="13.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Project(s)" wrappingWidth="204.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="24.0" />
                                  </font>
@@ -168,7 +225,72 @@ Unauthorized use or distribution of this code may result in legal action.
           </Tab>
           <Tab closable="false" text="Contact">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="800.0" prefWidth="846.0">
+                           <children>
+                              <Text fill="WHITE" layoutX="441.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone (Work)" wrappingWidth="201.9830722808838">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="440.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone (Home)" wrappingWidth="181.9830722808838">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="438.0" layoutY="560.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone (Cell)" wrappingWidth="153.9830722808838">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="440.0" layoutY="642.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone (Toll-Free)" wrappingWidth="201.9830722808838">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Button fx:id="contactSaveEditButton" layoutX="752.0" layoutY="749.0" mnemonicParsing="false" prefWidth="80.0" text="Save">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="18.0" />
+                                 </font>
+                              </Button>
+                              <TextField fx:id="contactWorkNumField" layoutX="439.0" layoutY="401.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="contactHomeNumField" layoutX="440.0" layoutY="484.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="contactCellNumField" layoutX="439.0" layoutY="572.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wordpressPasswordField1" layoutX="438.0" layoutY="656.0" prefHeight="27.0" prefWidth="396.0" />
+                              <ListView fx:id="projectList1" layoutX="20.0" layoutY="59.0" prefHeight="340.0" prefWidth="393.0" />
+                              <Text fill="WHITE" layoutX="21.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact(s)" wrappingWidth="204.9830722808838">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="24.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="442.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="254.0">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="441.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="240.9830722808838">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="441.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alias" wrappingWidth="210.9830722808838">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="contactNameField" layoutX="442.0" layoutY="81.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="contactEmailField" layoutX="441.0" layoutY="161.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="contactAliasField" layoutX="441.0" layoutY="319.0" prefHeight="27.0" prefWidth="396.0" />
+                              <Text fill="WHITE" layoutX="440.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email Password" wrappingWidth="240.9830722808838">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="contactEmailPassField" layoutX="440.0" layoutY="240.0" prefHeight="27.0" prefWidth="396.0" />
+                           </children>
+                        </Pane>
+                     </children></AnchorPane>
             </content>
           </Tab>
         </tabs>
@@ -179,5 +301,12 @@ Unauthorized use or distribution of this code may result in legal action.
             <Font name="DINPro-Medium" size="24.0" />
          </font>
       </Text>
+      <Button fx:id="deleteCompanyButton" layoutX="328.0" layoutY="402.0" mnemonicParsing="false" onAction="#deleteCompanyButtonListener" text="Delete" />
+      <Button fx:id="addCompanyButton" layoutX="261.0" layoutY="402.0" mnemonicParsing="false" onAction="#addCompanyButtonListener" prefHeight="27.0" prefWidth="56.0" text="Add" />
+      <Label fx:id="version" layoutX="12.0" layoutY="781.0" text="Version: " textFill="WHITE">
+         <font>
+            <Font name="DINPro-Medium" size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
