@@ -21,7 +21,7 @@ public class CustomerHelper {
     protected static ObservableList<Customer> setCompanyListData (){
         ObservableList<Customer> companyData;
 
-        System.out.println(ConsoleTag + "Populating Company List...");
+        System.out.println(ConsoleTag + " Populating Company List...");
         companyData = customerHandler.getCustomerData();    // get data from db via customerHandler
 
         // add names to observable list
@@ -30,7 +30,7 @@ public class CustomerHelper {
         } //endloop
 
         System.out.println("\t >> (" + companyNamesData.size() + ") Name List: " + companyNamesData);
-        System.out.println(ConsoleTag + "Populating Company List Done.");
+        System.out.println(ConsoleTag + " Populating Company List Done.");
 
         return companyData;
     }

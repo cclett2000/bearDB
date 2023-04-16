@@ -61,7 +61,7 @@ Unauthorized use or distribution of this code may result in legal action.
                      <children>
                         <Pane layoutX="10.0" layoutY="10.0" prefHeight="789.0" prefWidth="832.0">
                            <children>
-                              <Text fill="WHITE" layoutX="218.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Billing" wrappingWidth="181.9830722808838">
+                              <Text fill="WHITE" layoutX="218.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Billing" wrappingWidth="181.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
@@ -71,12 +71,12 @@ Unauthorized use or distribution of this code may result in legal action.
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="218.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="254.0">
+                              <Text fill="WHITE" layoutX="218.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="254.0">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="479.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ZIP Code" wrappingWidth="91.98307228088379">
+                              <Text fill="WHITE" layoutX="479.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ZIP Code" wrappingWidth="91.98307228088379">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
@@ -84,8 +84,8 @@ Unauthorized use or distribution of this code may result in legal action.
                               <TextField fx:id="companyBillingField" layoutX="218.0" layoutY="210.0" prefHeight="27.0" prefWidth="396.0" />
                               <TextField fx:id="companyCountryField" layoutX="218.0" layoutY="484.0" prefHeight="27.0" prefWidth="396.0" />
                               <TextField fx:id="companyNameField" layoutX="218.0" layoutY="137.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="companyZipField" layoutX="479.0" layoutY="348.0" prefHeight="27.0" prefWidth="135.0" />
-                              <Text fill="WHITE" layoutX="218.0" layoutY="397.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State" wrappingWidth="181.9830722808838">
+                              <TextField fx:id="companyZipField" layoutX="479.0" layoutY="351.0" prefHeight="27.0" prefWidth="135.0" />
+                              <Text fill="WHITE" layoutX="218.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State" wrappingWidth="181.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
