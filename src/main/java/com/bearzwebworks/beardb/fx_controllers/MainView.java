@@ -112,6 +112,15 @@ public class MainView {
 
                 customerHandler.removeCustomer(companyData.get(selectedIndex).getCustomerID());
 
+                // clear data from textfields
+                companyNameField.clear();
+                companyBillingField.clear();
+                companyCityField.clear();
+                companyZipField.clear();
+                companyStateField.clear();
+                companyCountryField.clear();
+                companyCommentsField.clear();
+
                 // refresh data in GUI from database
                 companyNamesData.clear();                       // clear name list
                 companyData.setAll(setCompanyListData());       // set to updated database
@@ -233,6 +242,7 @@ public class MainView {
                     temp.getCountry(),
                     temp.getComments());
 
+            companyNamesData.clear();
             companyData.setAll(setCompanyListData());
 
         }else{
