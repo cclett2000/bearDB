@@ -1,11 +1,16 @@
+/**
+ * Copyright (c) 2023 Charles Lett Jr. All rights reserved.
+ *
+ * This code is the property of Charles Lett Jr. and may not be used or distributed without permission.
+ * Unauthorized use or distribution of this code may result in legal action.
+*/
+
 package com.bearzwebworks.beardb.fx_controllers;
 
 import com.bearzwebworks.beardb.db.handler.customerHandler;
 import com.bearzwebworks.beardb.db.model.Customer;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
 
 import static com.bearzwebworks.beardb.fx_controllers.MainView.ConsoleTag;
 import static com.bearzwebworks.beardb.fx_controllers.MainView.companyNamesData;

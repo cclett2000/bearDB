@@ -8,7 +8,6 @@
 package com.bearzwebworks.beardb;
 
 import com.bearzwebworks.beardb.db.dbLogic;
-import com.bearzwebworks.beardb.db.handler.customerHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -33,7 +32,6 @@ public class Main extends javafx.application.Application {
     }
 
     public static void main(String[] args) {
-        //customerHandler.addCustomer("DELETEME", "Address", "Tulsa", "OK", "55203", "US", "Comments");
         launch();
     }
 }
