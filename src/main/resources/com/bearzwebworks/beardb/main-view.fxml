@@ -47,12 +47,6 @@ Unauthorized use or distribution of this code may result in legal action.
             </RadialGradient>
          </fill>
       </Rectangle>
-      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company/Organization">
-         <font>
-            <Font name="DINPro-Medium" size="24.0" />
-         </font>
-      </Text>
-      <ListView fx:id="companyListView" layoutX="12.0" layoutY="58.0" onMouseClicked="#companyItemClicked" prefHeight="340.0" prefWidth="372.0" />
       <TabPane blendMode="SRC_ATOP" layoutX="396.0" prefHeight="811.0" prefWidth="884.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
         <tabs>
             <Tab text="Company Info">
@@ -184,8 +178,8 @@ Unauthorized use or distribution of this code may result in legal action.
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <DatePicker fx:id="hostStartDateField" layoutX="432.0" layoutY="78.0" />
-                              <DatePicker fx:id="hostEndDateField" layoutX="638.0" layoutY="78.0" />
+                              <DatePicker fx:id="hostStartDateField" layoutX="432.0" layoutY="78.0" prefWidth="188.0" />
+                              <DatePicker fx:id="hostEndDateField" layoutX="638.0" layoutY="78.0" prefWidth="188.0" />
                               <Button fx:id="projectSaveEditButton" layoutX="744.0" layoutY="735.0" mnemonicParsing="false" prefWidth="80.0" text="Save">
                                  <font>
                                     <Font name="DINPro-Medium" size="18.0" />
@@ -203,7 +197,7 @@ Unauthorized use or distribution of this code may result in legal action.
                                     <Font size="14.0" />
                                  </font>
                               </RadioButton>
-                              <DatePicker fx:id="domainExpirationField" layoutX="639.0" layoutY="168.0" />
+                              <DatePicker fx:id="domainExpirationField" layoutX="639.0" layoutY="168.0" prefWidth="188.0" />
                               <TextField fx:id="urlField" layoutX="431.0" layoutY="343.0" prefHeight="27.0" prefWidth="396.0" />
                               <TextField fx:id="wordpressAddressField" layoutX="432.0" layoutY="433.0" prefHeight="27.0" prefWidth="396.0" />
                               <TextField fx:id="wordpressLoginField" layoutX="431.0" layoutY="538.0" prefHeight="27.0" prefWidth="396.0" />
@@ -295,18 +289,33 @@ Unauthorized use or distribution of this code may result in legal action.
           </Tab>
         </tabs>
       </TabPane>
-      <TextArea fx:id="companyCommentsField" layoutX="12.0" layoutY="474.0" prefHeight="285.0" prefWidth="372.0" />
-      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments">
-         <font>
-            <Font name="DINPro-Medium" size="24.0" />
-         </font>
-      </Text>
-      <Button fx:id="deleteCompanyButton" layoutX="328.0" layoutY="402.0" mnemonicParsing="false" onAction="#deleteCompanyButtonListener" text="Delete" />
-      <Button fx:id="addCompanyButton" layoutX="261.0" layoutY="402.0" mnemonicParsing="false" onAction="#addCompanyButtonListener" prefHeight="27.0" prefWidth="56.0" text="Add" />
-      <Label fx:id="version" layoutX="12.0" layoutY="775.0" text="Version: " textFill="WHITE">
-         <font>
-            <Font name="DINPro-Medium" size="13.0" />
-         </font>
-      </Label>
+      <AnchorPane layoutX="7.0" layoutY="5.0" prefHeight="791.0" prefWidth="382.0">
+         <children>
+            <TextArea fx:id="companyCommentsField" layoutX="5.0" layoutY="478.0" prefHeight="285.0" prefWidth="372.0" />
+            <Button fx:id="deleteCompanyButton" layoutX="314.0" layoutY="401.0" mnemonicParsing="false" onAction="#deleteCompanyButtonListener" text="Delete" />
+            <Button fx:id="addCompanyButton" layoutX="248.0" layoutY="400.0" mnemonicParsing="false" onAction="#addCompanyButtonListener" prefHeight="27.0" prefWidth="56.0" text="Add" />
+            <ListView fx:id="companyListView" layoutX="5.0" layoutY="54.0" onMouseClicked="#companyItemClicked" prefHeight="340.0" prefWidth="372.0" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="6.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company/Organization">
+               <font>
+                  <Font name="DINPro-Medium" size="24.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="6.0" layoutY="466.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments">
+               <font>
+                  <Font name="DINPro-Medium" size="24.0" />
+               </font>
+            </Text>
+            <Label fx:id="version" layoutX="8.0" layoutY="720.0" text="Version: " textFill="WHITE">
+               <font>
+                  <Font name="DINPro-Medium" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="version" layoutX="5.0" layoutY="772.0" text="Version: " textFill="WHITE">
+               <font>
+                  <Font name="DINPro-Medium" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

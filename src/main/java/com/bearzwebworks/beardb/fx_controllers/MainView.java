@@ -7,6 +7,7 @@
 
 package com.bearzwebworks.beardb.fx_controllers;
 
+import com.bearzwebworks.beardb.Main;
 import com.bearzwebworks.beardb.db.handler.customerHandler;
 import com.bearzwebworks.beardb.db.model.Customer;
 import com.bearzwebworks.beardb.globalVariables;
@@ -172,7 +173,9 @@ public class MainView {
         addInformationLayout.addRow(6, addCompanyButton);
 
         // Create the add information window scene
-        Scene addInformationScene = new Scene(addInformationLayout, 300, 270);
+        // TODO: find a way to ignore OS zoom/font size
+        Scene addInformationScene = new Scene(addInformationLayout, 330, 300);
+        addInformationScene.getStylesheets().add(String.valueOf(Main.class.getResource("styles/layout.css")));
 
         // Create the add information window stage
         Stage addInformationStage = new Stage();

@@ -10,6 +10,7 @@ package com.bearzwebworks.beardb;
 import com.bearzwebworks.beardb.db.dbLogic;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,13 +22,17 @@ public class Main extends javafx.application.Application {
         dbLogic.createDatabase();
         dbLogic.initDatabase();
 
+        System.setProperty("glass.win.uiScale", "100%");
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
         scene.getStylesheets().add(String.valueOf(Main.class.getResource("styles/layout.css")));
+
         stage.setTitle("Bearz Company DB Manager");
         stage.setScene(scene);
         stage.setResizable(false);
+
         stage.show();
     }
 

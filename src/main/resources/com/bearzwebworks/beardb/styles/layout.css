@@ -5,6 +5,9 @@
   without permission. Unauthorized use or distribution of this stylesheet may
   result in legal action.
 */
+.root {
+    -fx-font-size: 15px;
+}
 
 .list-view .list-cell:even {
 -fx-text-fill: black;
