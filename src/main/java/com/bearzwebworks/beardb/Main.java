@@ -8,6 +8,8 @@
 package com.bearzwebworks.beardb;
 
 import com.bearzwebworks.beardb.db.dbLogic;
+import com.bearzwebworks.beardb.db.handler.contactHandler;
+import com.bearzwebworks.beardb.db.model.Contact;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
