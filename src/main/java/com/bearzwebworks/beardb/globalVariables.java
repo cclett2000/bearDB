@@ -9,7 +9,7 @@ package com.bearzwebworks.beardb;
 
 public class globalVariables {
     // prod_type.table_implementation.iteration
-    public static final String VERSION = "alpha.1.16";
+    public static final String VERSION = "alpha.1.17";
 
     // db table names
     public static final String CUSTOMER_TABLE_NAME = "Customer";
