@@ -8,6 +8,7 @@
 package com.bearzwebworks.beardb.db.model;
 
 public class Project {
+    private String ProjectName;
     private int CustomerID;
     private String HostingBeginDate;    //need date formatter
     private String HostingEndDate;      //need date formatter
@@ -43,6 +44,14 @@ public class Project {
                 ", isMonthly=" + isMonthly +
                 ", isYearly=" + isYearly +
                 '}';
+    }
+
+    public String getProjectName() {
+        return ProjectName;
+    }
+
+    public void setProjectName(String projectName) {
+        ProjectName = projectName;
     }
 
     public int getCustomerID() {
