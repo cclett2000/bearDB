@@ -7,15 +7,16 @@
 
 package com.bearzwebworks.beardb.fx_controllers;
 
+import com.bearzwebworks.beardb.db.handler.contactHandler;
 import com.bearzwebworks.beardb.db.handler.customerHandler;
+import com.bearzwebworks.beardb.db.model.Contact;
 import com.bearzwebworks.beardb.db.model.Customer;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
-import static com.bearzwebworks.beardb.fx_controllers.MainView.ConsoleTag;
-import static com.bearzwebworks.beardb.fx_controllers.MainView.companyNamesData;
+import static com.bearzwebworks.beardb.fx_controllers.MainView.*;
 
-public class CustomerHelper {
+public class MainViewHelper {
     @FXML
     /** create observable list for company dataset and store name in another list for listview*/
     protected static ObservableList<Customer> setCompanyListData (){
@@ -33,6 +34,23 @@ public class CustomerHelper {
         System.out.println(ConsoleTag + " Populating Company List Done.");
 
         return companyData;
+    }
+
+    protected static ObservableList<Contact> setContactListData(int customerID){
+        ObservableList<Contact> contactData;
+
+        System.out.println(ConsoleTag + " Populating Contact List...");
+        contactData = contactHandler.getContactData(customerID);    // get data from db via customerHandler
+
+        // add names to observable list
+        for (Contact contactDatum : contactData) {
+            contactNameData.add(contactDatum.getName());
+        } //endloop
+
+        System.out.println("\t >> (" + contactNameData.size() + ") Name List: " + contactNameData);
+        System.out.println(ConsoleTag + " Populating Contact List Done.");
+
+        return contactData;
     }
 
 }

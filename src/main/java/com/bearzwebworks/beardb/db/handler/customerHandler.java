@@ -16,6 +16,8 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 
 public class customerHandler {
+    static final boolean DEBUG = false;
+
     /** add new customer to customer table */
     public static void addCustomer(String CompanyName, String Billing, String City, String State, String ZIP, String Country, String Comments) {
         try {
@@ -94,18 +96,21 @@ public class customerHandler {
     public static ObservableList<Customer> getCustomerData(){
         ObservableList<Customer> rsData = FXCollections.observableArrayList();
 
-        String getSize = "SELECT COUNT(*) FROM Customer";
         String sql = "SELECT * FROM Customer";
 
         try (Connection conn = dbLogic.connect("CUSTOMER-ALL-QUERY");
              Statement stmt = conn.createStatement();
              Statement getRowCount = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)){
-                int rowCount = getRowCount.executeQuery(getSize).getInt(1);
 
-                // loop through the result set
+            if(DEBUG) {
+                String getSize = "SELECT COUNT(*) FROM Customer";
+                int rowCount = getRowCount.executeQuery(getSize).getInt(1);
                 System.out.println("[CUSTOMER-ALL-QUERY] - Data Size: " + rowCount);
-                while(rs.next()){
+            }
+
+            // loop through the result set
+            while(rs.next()){
                     Customer customer = new Customer();
 
                     customer.setCustomerID(rs.getInt("CustomerID"));

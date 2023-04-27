@@ -28,11 +28,14 @@ package com.bearzwebworks.beardb.db.handler;
 
 import com.bearzwebworks.beardb.db.dbLogic;
 import com.bearzwebworks.beardb.db.model.Contact;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class contactHandler {
+    static final boolean DEBUG = true;
+
     /** add new contact to contact table */
     public static void addContact(Contact contactData) {
         try {
@@ -61,5 +64,51 @@ public class contactHandler {
             e.printStackTrace();
         }
 
+    }
+
+    /** get all contact info from table -- uses custom model to access/modify values */
+    public static ObservableList<Contact> getContactData(int CustomerID){
+        ObservableList<Contact> rsData = FXCollections.observableArrayList();
+
+        String getSize = "SELECT COUNT(*) FROM Contact WHERE CustomerID = " + CustomerID;
+        String sql = "SELECT * FROM Contact WHERE CustomerID = " + CustomerID;
+
+        try (Connection conn = dbLogic.connect("CONTACT-ALL-QUERY");
+             Statement debugGetRowCount = conn.createStatement();
+             Statement getDataStmt = conn.createStatement();
+             ResultSet rs = getDataStmt.executeQuery(sql)){
+
+            if(DEBUG) {
+                int rowCount = debugGetRowCount.executeQuery(getSize).getInt(1);
+                System.out.println("[CONTACT-ALL-QUERY] - Data Size: " + rowCount);
+            }
+
+            // loop through the result set
+            while(rs.next()){
+                Contact contact = new Contact();
+
+                contact.setContactID(rs.getInt("ContactsID"));
+                contact.setCustomerID(rs.getInt("CustomerID"));
+                contact.setContactTitle(rs.getString("ContactTitle"));
+                contact.setName(rs.getString("Name"));
+                contact.setEmailAddress(rs.getString("EmailAddress"));
+                contact.setEmailPass(rs.getString("EmailPass"));
+                contact.setAlias(rs.getString("Alias"));
+                contact.setPhoneNumber(rs.getString("PhoneNumber"));
+                contact.setExtension(rs.getString("Extension"));
+                contact.setFaxNumber(rs.getString("FaxNumber"));
+                contact.setHomeNumber(rs.getString("HomeNumber"));
+                contact.setCellNumber(rs.getString("CellNumber"));
+                contact.setTollFree(rs.getString("TollFree"));
+
+                rsData.add(contact);
+            } //endloop
+        }
+
+        catch (SQLException e) {
+            System.out.println("[CONTACT-ALL-QUERY-ERR!] - " + e.getMessage());
+            e.printStackTrace();
+        }
+        return rsData;
     }
 }

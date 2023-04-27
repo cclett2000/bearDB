@@ -8,7 +8,9 @@
 package com.bearzwebworks.beardb.fx_controllers;
 
 import com.bearzwebworks.beardb.Main;
+import com.bearzwebworks.beardb.db.handler.contactHandler;
 import com.bearzwebworks.beardb.db.handler.customerHandler;
+import com.bearzwebworks.beardb.db.model.Contact;
 import com.bearzwebworks.beardb.db.model.Customer;
 import com.bearzwebworks.beardb.globalVariables;
 import javafx.collections.FXCollections;
@@ -19,32 +21,38 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
 
 import java.sql.SQLException;
-import java.util.Locale;
 
-import static com.bearzwebworks.beardb.fx_controllers.CustomerHelper.setCompanyListData;
+import static com.bearzwebworks.beardb.fx_controllers.MainViewHelper.setCompanyListData;
+import static com.bearzwebworks.beardb.fx_controllers.MainViewHelper.setContactListData;
 
 public class MainView {
-    CustomerHelper cusHelper = new CustomerHelper();
     static String ConsoleTag = "[GUI-MAIN-VIEW]";
 
+    boolean contactUpdatedForCurrentCompanyIndex = false;
+
+    // CUSTOMER
     protected static ObservableList<String> companyNamesData = FXCollections.observableArrayList();
     protected static ObservableList<Customer> companyData = setCompanyListData();
 
-    int selectedIndex = -1;  //store index of the selected company
+    // CONTACT
+    protected static ObservableList<String> contactNameData = FXCollections.observableArrayList();
+    protected static ObservableList<Contact> contactData;
+
+    int companySelectedIndex = -1;  // store index of the selected company
+    int contactSelectedIndex = -1;  // store index of selected contact
 
     //region FXML ListViews
     @FXML protected ListView<String> companyListView;   // customer name list for GUI
+    @FXML protected ListView<String> contactListView;   // contact name list for GUI
     //endregion
 
     //region FXML TextFields
     @FXML Label version;
 
-    /**COMPANY METADATA */
+    /** COMPANY METADATA */
     @FXML TextField companyNameField;
     @FXML TextField companyBillingField;
     @FXML TextField companyCityField;
@@ -52,6 +60,18 @@ public class MainView {
     @FXML TextField companyStateField;
     @FXML TextField companyCountryField;
     @FXML TextArea companyCommentsField;
+
+    /** CONTACT METADATA */
+    @FXML TextField contactNameField;
+    @FXML TextField contactTitleField;
+    @FXML TextField contactEmailField;
+    @FXML TextField contactEmailPassField;
+    @FXML TextField contactAliasField;
+    @FXML TextField contactExtensionField;
+    @FXML TextField contactFaxNumField;
+    @FXML TextField contactHomeNumField;
+    @FXML TextField contactCellNumField;
+    @FXML TextField contactTollFreeNumField;
 
     /** section placeholder */
 
@@ -64,7 +84,12 @@ public class MainView {
         // ensures first item clicked returns the right index
         companyListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.intValue() != -1) {
-                selectedIndex = newValue.intValue();    // set index
+                companySelectedIndex = newValue.intValue();    // set index
+            } //endif
+        });
+        contactListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.intValue() != -1) {
+                contactSelectedIndex = newValue.intValue();    // set index
             } //endif
         });
     }
@@ -72,17 +97,18 @@ public class MainView {
     //region Company Logic
     @FXML
     /** LIST_CLICK - Logic for clicking on a company name in the listView */
-    protected void companyItemClicked(){
+    public void companyItemClicked(){
         String methodTag = ConsoleTag + "[OnClick - Company/Organization]";
+
         // get index of the item clicked
         companyListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.intValue() != -1) {
-                selectedIndex = newValue.intValue();    // set index
+                companySelectedIndex = newValue.intValue();    // set index
             } //endif
         });
-        Customer temp = companyData.get(selectedIndex);
+        Customer temp = companyData.get(companySelectedIndex);
 
-        System.out.println(methodTag + " | Index: " + selectedIndex + " | ID: " + temp.getCustomerID() + " | Name: " + companyListView.getSelectionModel().getSelectedItem() + " | ");
+        System.out.println(methodTag + " Index: " + companySelectedIndex + " | ID: " + temp.getCustomerID() + " | Name: " + companyListView.getSelectionModel().getSelectedItem() + " | ");
 
         //region populate company information
         companyNameField.setText(temp.getCompanyName());
@@ -95,24 +121,29 @@ public class MainView {
         //endregion
 
 
-        //TODO: populate projects with appropiate id
+        /** POPULATE CONTACT LIST LOGIC */
+        if (!contactUpdatedForCurrentCompanyIndex) {
+            contactData = setContactListData(temp.getCustomerID());
+            contactListView.setItems(contactNameData);
+            contactUpdatedForCurrentCompanyIndex = true;
+        }
     }
 
     /** BUTTON - logic for deleting company and it's data */
     public void deleteCompanyButtonListener(ActionEvent actionEvent) throws SQLException {
         String methodTag = ConsoleTag + "[OnClick - Delete Company] ";
-        if(selectedIndex > -1) {
+        if(companySelectedIndex > -1) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
-            alert.setHeaderText("Are you sure you want to delete '" + companyNamesData.get(selectedIndex) + "'");
+            alert.setHeaderText("Are you sure you want to delete '" + companyNamesData.get(companySelectedIndex) + "'");
             alert.setContentText("This will delete all data relative to this company and cannot be undone.");
 
             ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
 
             if (result == ButtonType.OK) {
-                System.out.println(methodTag + "Attempting to Delete" + "\n\t >> " + companyData.get(selectedIndex));
+                System.out.println(methodTag + "Attempting to Delete" + "\n\t >> " + companyData.get(companySelectedIndex));
 
-                customerHandler.removeCustomer(companyData.get(selectedIndex).getCustomerID());
+                customerHandler.removeCustomer(companyData.get(companySelectedIndex).getCustomerID());
 
                 // clear data from textfields
                 companyNameField.clear();
@@ -224,9 +255,9 @@ public class MainView {
         String methodTag = ConsoleTag + "[Button - Save Company Info] ";
         Customer temp = new Customer();
 
-        if (selectedIndex > -1) {
+        if (companySelectedIndex > -1) {
             //region get company information
-            temp.setCustomerID(companyData.get(selectedIndex).getCustomerID());
+            temp.setCustomerID(companyData.get(companySelectedIndex).getCustomerID());
             temp.setCompanyName(companyNameField.getText());
             temp.setBilling(companyBillingField.getText());
             temp.setCity(companyCityField.getText());
@@ -256,6 +287,96 @@ public class MainView {
     //endregion
 
     //region Project Logic
+    public void contactItemClicked(){
+        String methodTag = ConsoleTag + "[OnClick - Contact]";
+
+        // get index of the item clicked
+        contactListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.intValue() != -1) {
+                contactSelectedIndex = newValue.intValue();    // set index
+            } //endif
+        });
+
+        Contact temp = contactData.get(contactSelectedIndex);
+
+        System.out.println(methodTag + " Index: " + contactSelectedIndex + " | ID: " + temp.getContactID() + " | Name: " + contactListView.getSelectionModel().getSelectedItem() + " | ");
+
+        //region populate company information
+        contactNameField.setText(temp.getName());
+        contactTitleField.setText(temp.getContactTitle());
+        contactEmailField.setText(temp.getEmailAddress());
+        contactEmailPassField.setText(temp.getEmailPass());
+        contactAliasField.setText(temp.getAlias());
+        contactExtensionField.setText(temp.getExtension());
+        contactFaxNumField.setText(temp.getFaxNumber());
+        contactHomeNumField.setText(temp.getHomeNumber());
+        contactCellNumField.setText(temp.getCellNumber());
+        contactTollFreeNumField.setText(temp.getTollFree());
+        //endregion
+    }
+
+    /** BUTTON - logic for adding contact */
+    public void addContactButtonListener(ActionEvent actionEvent){
+        String methodTag = ConsoleTag + "[Button - Add New Company] ";
+        Contact temp = new Contact();
+
+        Button addCompanyButton = new Button();
+        addCompanyButton.setText("Add");
+
+        // Create the add information window controls
+        Label nameLabel = new Label("Name:");
+        TextField nameTextField = new TextField();
+        Label emailLabel = new Label("Email:");
+        TextField emailTextField = new TextField();
+
+        // Add the add information window controls to a layout
+        GridPane addInformationLayout = new GridPane();
+        addInformationLayout.setHgap(10);
+        addInformationLayout.setVgap(10);
+        addInformationLayout.setPadding(new Insets(10));
+        addInformationLayout.addRow(0, nameLabel, nameTextField);
+        addInformationLayout.addRow(1, emailLabel, emailTextField);
+
+        addInformationLayout.addRow(4, addCompanyButton);
+
+        // Create the add information window scene
+        // TODO: find a way to ignore OS zoom/font size
+        Scene addInformationScene = new Scene(addInformationLayout, 330, 300);
+        addInformationScene.getStylesheets().add(String.valueOf(Main.class.getResource("styles/layout.css")));
+
+        // Create the add information window stage
+        Stage addInformationStage = new Stage();
+        addInformationStage.setTitle("Add New Contact");
+        addInformationStage.setScene(addInformationScene);
+        addInformationStage.setResizable(false);
+
+        // Show the add information window
+        addInformationStage.show();
+
+        // button logic
+        // TODO: possibly change to allow adding companies with partial information
+        addCompanyButton.setOnAction(e -> {
+            if(nameTextField.getText().length() > 0 && emailTextField.getText().length() > 0) {
+                // data getting logic
+                temp.setCustomerID(companyData.get(companySelectedIndex).getCustomerID());
+                temp.setName(nameTextField.getText());
+                temp.setEmailAddress(emailTextField.getText());
+
+                contactHandler.addContact(temp);
+
+                contactNameData.clear();
+                contactData.setAll(setContactListData(companyData.get(companySelectedIndex).getCustomerID()));
+                addInformationStage.close();
+            }else {
+                System.out.println(methodTag + "Can't add contact, some fields are empty!");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Whoops!");
+                alert.setHeaderText("Can't Add New Contact");
+                alert.setContentText("Please fill out all fields.");
+                alert.showAndWait();
+            }
+        });
+    }
     //endregion
 
     //region Contact Logic

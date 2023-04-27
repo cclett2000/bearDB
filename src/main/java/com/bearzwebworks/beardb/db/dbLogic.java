@@ -70,14 +70,14 @@ public class dbLogic {
                     ContactTitle TEXT,
                     Name TEXT,
                     EmailAddress TEXT,
+                    EmailPass TEXT,
                     Alias TEXT,
                     PhoneNumber TEXT,
                     Extension TEXT,
                     FaxNumber TEXT,
                     HomeNumber TEXT,
                     CellNumber TEXT,
-                    TollFree TEXT,
-                    EmailPass TEXT
+                    TollFree TEXT
                 );
                 """;
 

@@ -39,6 +39,25 @@ public class Main extends javafx.application.Application {
     }
 
     public static void main(String[] args) {
+        Contact contact = new Contact();
+
+//        contact.setCustomerID(1);
+//        contact.setContactTitle("Title");
+//        contact.setName("Name");
+//        contact.setEmailAddress("EmailAddy");
+//        contact.setEmailPass("EmailPassy");
+//        contact.setAlias("Alias");
+//        contact.setPhoneNumber("PhoneNumber");
+//        contact.setExtension("Extension");
+//        contact.setFaxNumber("FaxNumber");
+//        contact.setHomeNumber("HomeNumber");
+//        contact.setCellNumber("CellNumber");
+//        contact.setTollFree("TollFree");
+//
+//        contactHandler.addContact(contact);
+//
+//        System.exit(419);
+
         launch();
     }
 }
