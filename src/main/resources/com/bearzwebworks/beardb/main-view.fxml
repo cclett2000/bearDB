@@ -148,32 +148,32 @@ Unauthorized use or distribution of this code may result in legal action.
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="432.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Address" wrappingWidth="181.9830722808838">
+                              <Text fill="WHITE" layoutX="432.0" layoutY="428.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Address" wrappingWidth="181.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="430.0" layoutY="527.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Login" wrappingWidth="153.9830722808838">
+                              <Text fill="WHITE" layoutX="430.0" layoutY="534.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Login" wrappingWidth="153.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="434.0" layoutY="635.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Password" wrappingWidth="201.9830722808838">
+                              <Text fill="WHITE" layoutX="434.0" layoutY="642.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Password" wrappingWidth="201.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="13.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Username" wrappingWidth="254.0">
+                              <Text fill="WHITE" layoutX="13.0" layoutY="428.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Username" wrappingWidth="254.0">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="12.0" layoutY="527.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Password" wrappingWidth="240.9830722808838">
+                              <Text fill="WHITE" layoutX="12.0" layoutY="534.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Password" wrappingWidth="240.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="13.0" layoutY="635.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Serial" wrappingWidth="210.9830722808838">
+                              <Text fill="WHITE" layoutX="13.0" layoutY="642.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Serial" wrappingWidth="210.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
@@ -199,12 +199,12 @@ Unauthorized use or distribution of this code may result in legal action.
                               </RadioButton>
                               <DatePicker fx:id="domainExpirationField" layoutX="639.0" layoutY="165.0" prefWidth="188.0" />
                               <TextField fx:id="urlField" layoutX="431.0" layoutY="343.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wordpressAddressField" layoutX="432.0" layoutY="433.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wordpressLoginField" layoutX="431.0" layoutY="538.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wordpressPasswordField" layoutX="432.0" layoutY="649.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wooCommerceUsernameField" layoutX="13.0" layoutY="433.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wooCommercePasswordField" layoutX="12.0" layoutY="538.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wooCommerceSerialField" layoutX="13.0" layoutY="649.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wordpressAddressField" layoutX="432.0" layoutY="440.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wordpressLoginField" layoutX="431.0" layoutY="545.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wordpressPasswordField" layoutX="432.0" layoutY="656.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wooCommerceUsernameField" layoutX="13.0" layoutY="440.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wooCommercePasswordField" layoutX="12.0" layoutY="545.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wooCommerceSerialField" layoutX="13.0" layoutY="656.0" prefHeight="27.0" prefWidth="396.0" />
                               <ListView fx:id="projectList" layoutX="12.0" layoutY="45.0" prefHeight="340.0" prefWidth="393.0" />
                               <Text fill="WHITE" layoutX="13.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Project(s)" wrappingWidth="204.9830722808838">
                                  <font>
