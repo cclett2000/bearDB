@@ -243,7 +243,7 @@ Unauthorized use or distribution of this code may result in legal action.
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Button fx:id="contactSaveEditButton" layoutX="752.0" layoutY="749.0" mnemonicParsing="false" prefWidth="80.0" text="Save">
+                              <Button fx:id="contactSaveEditButton" layoutX="752.0" layoutY="749.0" mnemonicParsing="false" onAction="#editContactButtonListener" prefWidth="80.0" text="Save">
                                  <font>
                                     <Font name="DINPro-Medium" size="18.0" />
                                  </font>
@@ -282,7 +282,7 @@ Unauthorized use or distribution of this code may result in legal action.
                                  </font>
                               </Text>
                               <TextField fx:id="contactEmailPassField" layoutX="438.0" layoutY="316.0" prefHeight="27.0" prefWidth="396.0" />
-                              <Button fx:id="deleteContactButton" layoutX="350.0" layoutY="406.0" mnemonicParsing="false" text="Delete" />
+                              <Button fx:id="deleteContactButton" layoutX="350.0" layoutY="406.0" mnemonicParsing="false" onAction="#deleteContactButtonListener" text="Delete" />
                               <Button fx:id="addContactButton" layoutX="284.0" layoutY="405.0" mnemonicParsing="false" onAction="#addContactButtonListener" prefHeight="27.0" prefWidth="56.0" text="Add" />
                               <Text fill="WHITE" layoutX="439.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="254.0">
                                  <font>

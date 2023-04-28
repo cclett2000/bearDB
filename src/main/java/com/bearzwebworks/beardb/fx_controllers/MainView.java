@@ -17,7 +17,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -31,18 +34,16 @@ import static com.bearzwebworks.beardb.fx_controllers.MainViewHelper.setContactL
 public class MainView {
     static String ConsoleTag = "[GUI-MAIN-VIEW]";
 
-    boolean contactUpdatedForCurrentCompanyIndex = false;
-
     // CUSTOMER
     protected static ObservableList<String> companyNamesData = FXCollections.observableArrayList();
     protected static ObservableList<Customer> companyData = setCompanyListData();
 
     // CONTACT
     protected static ObservableList<String> contactNameData = FXCollections.observableArrayList();
-    protected static ObservableList<Contact> contactData;
+    protected static ObservableList<Contact> contactData = FXCollections.observableArrayList();
 
-    int companySelectedIndex = -1;  // store index of the selected company
-    int contactSelectedIndex = -1;  // store index of selected contact
+    protected int companySelectedIndex = -1;  // store index of the selected company
+    protected int contactSelectedIndex = -1;  // store index of selected contact
 
     //region FXML ListViews
     @FXML protected ListView<String> companyListView;   // customer name list for GUI
@@ -50,28 +51,28 @@ public class MainView {
     //endregion
 
     //region FXML TextFields
-    @FXML Label version;
+    @FXML private Label version;
 
     /** COMPANY METADATA */
-    @FXML TextField companyNameField;
-    @FXML TextField companyBillingField;
-    @FXML TextField companyCityField;
-    @FXML TextField companyZipField;
-    @FXML TextField companyStateField;
-    @FXML TextField companyCountryField;
-    @FXML TextArea companyCommentsField;
+    @FXML private TextField companyNameField;
+    @FXML private TextField companyBillingField;
+    @FXML private TextField companyCityField;
+    @FXML private TextField companyZipField;
+    @FXML private TextField companyStateField;
+    @FXML private TextField companyCountryField;
+    @FXML private TextArea companyCommentsField;
 
     /** CONTACT METADATA */
-    @FXML TextField contactNameField;
-    @FXML TextField contactTitleField;
-    @FXML TextField contactEmailField;
-    @FXML TextField contactEmailPassField;
-    @FXML TextField contactAliasField;
-    @FXML TextField contactExtensionField;
-    @FXML TextField contactFaxNumField;
-    @FXML TextField contactHomeNumField;
-    @FXML TextField contactCellNumField;
-    @FXML TextField contactTollFreeNumField;
+    @FXML private TextField contactNameField;
+    @FXML private TextField contactTitleField;
+    @FXML private TextField contactEmailField;
+    @FXML private TextField contactEmailPassField;
+    @FXML private TextField contactAliasField;
+    @FXML private TextField contactExtensionField;
+    @FXML private TextField contactFaxNumField;
+    @FXML private TextField contactHomeNumField;
+    @FXML private TextField contactCellNumField;
+    @FXML private TextField contactTollFreeNumField;
 
     /** section placeholder */
 
@@ -80,6 +81,7 @@ public class MainView {
     public void initialize(){
         version.setText(globalVariables.VERSION);
         companyListView.setItems(companyNamesData);
+        contactListView.setItems(contactNameData);
 
         // ensures first item clicked returns the right index
         companyListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
@@ -122,11 +124,9 @@ public class MainView {
 
 
         /** POPULATE CONTACT LIST LOGIC */
-        if (!contactUpdatedForCurrentCompanyIndex) {
-            contactData = setContactListData(temp.getCustomerID());
-            contactListView.setItems(contactNameData);
-            contactUpdatedForCurrentCompanyIndex = true;
-        }
+        // purge contact data to ensure list is updated and not duplicated
+        contactNameData.clear();
+        contactData.setAll(setContactListData(temp.getCustomerID()));
     }
 
     /** BUTTON - logic for deleting company and it's data */
@@ -154,7 +154,19 @@ public class MainView {
                 companyCountryField.clear();
                 companyCommentsField.clear();
 
+                contactNameField.clear();
+                contactTitleField.clear();
+                contactEmailField.clear();
+                contactEmailPassField.clear();
+                contactAliasField.clear();
+                contactExtensionField.clear();
+                contactFaxNumField.clear();
+                contactHomeNumField.clear();
+                contactCellNumField.clear();
+                contactTollFreeNumField.clear();
+
                 // refresh data in GUI from database
+                contactNameData.clear();
                 companyNamesData.clear();                       // clear name list
                 companyData.setAll(setCompanyListData());       // set to updated database
 
@@ -164,6 +176,11 @@ public class MainView {
             }
         }else{
             System.out.println(methodTag + " No Company Selected");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Can't Delete Company");
+            alert.setHeaderText("No Company Selected!");
+            alert.setContentText("Make sure you've selected a company in the 'Company/Organization' panel");
+            alert.showAndWait();
         }
     }
 
@@ -172,22 +189,21 @@ public class MainView {
         String methodTag = ConsoleTag + "[Button - Add New Company] ";
         Customer temp = new Customer();
 
-        Button addCompanyButton = new Button();
-        addCompanyButton.setText("Add");
+        Button addCompanyButton = new Button("Add");
 
         // Create the add information window controls
         Label nameLabel = new Label("Company Name:");
         TextField nameTextField = new TextField();
-        Label billingLabel = new Label("Billing:");
-        TextField billingTextField = new TextField();
-        Label cityLabel = new Label("City:");
-        TextField cityTextField = new TextField();
-        Label stateLabel = new Label("State:");
-        TextField stateTextField = new TextField();
-        Label zipLabel = new Label("Zip:");
-        TextField zipTextField = new TextField();
-        Label countryLabel = new Label("Country:");
-        TextField countryTextField = new TextField();
+//        Label billingLabel = new Label("Billing:");
+//        TextField billingTextField = new TextField();
+//        Label cityLabel = new Label("City:");
+//        TextField cityTextField = new TextField();
+//        Label stateLabel = new Label("State:");
+//        TextField stateTextField = new TextField();
+//        Label zipLabel = new Label("Zip:");
+//        TextField zipTextField = new TextField();
+//        Label countryLabel = new Label("Country:");
+//        TextField countryTextField = new TextField();
 
         // Add the add information window controls to a layout
         GridPane addInformationLayout = new GridPane();
@@ -195,17 +211,17 @@ public class MainView {
         addInformationLayout.setVgap(10);
         addInformationLayout.setPadding(new Insets(10));
         addInformationLayout.addRow(0, nameLabel, nameTextField);
-        addInformationLayout.addRow(1, billingLabel, billingTextField);
-        addInformationLayout.addRow(2, cityLabel, cityTextField);
-        addInformationLayout.addRow(3, stateLabel, stateTextField);
-        addInformationLayout.addRow(4, zipLabel, zipTextField);
-        addInformationLayout.addRow(5, countryLabel, countryTextField);
+//        addInformationLayout.addRow(1, billingLabel, billingTextField);
+//        addInformationLayout.addRow(2, cityLabel, cityTextField);
+//        addInformationLayout.addRow(3, stateLabel, stateTextField);
+//        addInformationLayout.addRow(4, zipLabel, zipTextField);
+//        addInformationLayout.addRow(5, countryLabel, countryTextField);
 
-        addInformationLayout.addRow(6, addCompanyButton);
+        addInformationLayout.addRow(1, addCompanyButton);
 
         // Create the add information window scene
         // TODO: find a way to ignore OS zoom/font size
-        Scene addInformationScene = new Scene(addInformationLayout, 330, 300);
+        Scene addInformationScene = new Scene(addInformationLayout, 330, 100);
         addInformationScene.getStylesheets().add(String.valueOf(Main.class.getResource("styles/layout.css")));
 
         // Create the add information window stage
@@ -220,14 +236,15 @@ public class MainView {
         // button logic
         // TODO: possibly change to allow adding companies with partial information
         addCompanyButton.setOnAction(e -> {
-            if(nameTextField.getText().length() > 0 && billingTextField.getText().length() > 0 && cityTextField.getText().length() > 0 && stateTextField.getText().length() > 0 && zipLabel.getText().length() > 0 && countryTextField.getText().length() > 0) {
+            // if(nameTextField.getText().length() > 0 && billingTextField.getText().length() > 0 && cityTextField.getText().length() > 0 && stateTextField.getText().length() > 0 && zipLabel.getText().length() > 0 && countryTextField.getText().length() > 0)
+            if(nameTextField.getText().length()  > 0) {
                 // data getting logic
                 temp.setCompanyName(nameTextField.getText());
-                temp.setBilling(billingTextField.getText());
-                temp.setCity(cityTextField.getText());
-                temp.setState(stateTextField.getText());
-                temp.setZIP(zipTextField.getText());
-                temp.setCountry(countryTextField.getText());
+//                temp.setBilling(billingTextField.getText());
+//                temp.setCity(cityTextField.getText());
+//                temp.setState(stateTextField.getText());
+//                temp.setZIP(zipTextField.getText());
+//                temp.setCountry(countryTextField.getText());
 
                 customerHandler.addCustomer(temp.getCompanyName(),
                         temp.getBilling(),
@@ -240,11 +257,11 @@ public class MainView {
                 companyData.setAll(setCompanyListData());
                 addInformationStage.close();
             }else {
-                System.out.println(methodTag + "Can't add company, some fields are empty!");
+                System.out.println(methodTag + "Can't add company, 'Company Name' field is empty!");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Whoops!");
                 alert.setHeaderText("Can't Add New Company");
-                alert.setContentText("Please fill out all fields.");
+                alert.setContentText("Please fill out the 'Company Name' field.");
                 alert.showAndWait();
             }
         });
@@ -282,11 +299,20 @@ public class MainView {
 
         }else{
             System.out.println(methodTag + "No Company Selected, Can't Save");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Can't Save Company Changes");
+            alert.setHeaderText("No Company Selected!");
+            alert.setContentText("Make sure you've selected a company in the 'Company/Organization' panel");
+            alert.showAndWait();
         }
     }
     //endregion
 
     //region Project Logic
+    //endregion
+
+    //region Contact Logic
+    /** LIST_CLICK - Logic for clicking on a contact name in the listView */
     public void contactItemClicked(){
         String methodTag = ConsoleTag + "[OnClick - Contact]";
 
@@ -324,10 +350,10 @@ public class MainView {
         addCompanyButton.setText("Add");
 
         // Create the add information window controls
-        Label nameLabel = new Label("Name:");
+        Label nameLabel = new Label("Contact Name:");
         TextField nameTextField = new TextField();
-        Label emailLabel = new Label("Email:");
-        TextField emailTextField = new TextField();
+//        Label emailLabel = new Label("Email:");
+//        TextField emailTextField = new TextField();
 
         // Add the add information window controls to a layout
         GridPane addInformationLayout = new GridPane();
@@ -335,13 +361,13 @@ public class MainView {
         addInformationLayout.setVgap(10);
         addInformationLayout.setPadding(new Insets(10));
         addInformationLayout.addRow(0, nameLabel, nameTextField);
-        addInformationLayout.addRow(1, emailLabel, emailTextField);
+//        addInformationLayout.addRow(1, emailLabel, emailTextField);
 
-        addInformationLayout.addRow(4, addCompanyButton);
+        addInformationLayout.addRow(1, addCompanyButton);
 
         // Create the add information window scene
         // TODO: find a way to ignore OS zoom/font size
-        Scene addInformationScene = new Scene(addInformationLayout, 330, 300);
+        Scene addInformationScene = new Scene(addInformationLayout, 330, 100);
         addInformationScene.getStylesheets().add(String.valueOf(Main.class.getResource("styles/layout.css")));
 
         // Create the add information window stage
@@ -356,11 +382,12 @@ public class MainView {
         // button logic
         // TODO: possibly change to allow adding companies with partial information
         addCompanyButton.setOnAction(e -> {
-            if(nameTextField.getText().length() > 0 && emailTextField.getText().length() > 0) {
+//            if(nameTextField.getText().length() > 0 && emailTextField.getText().length() > 0)
+            if(nameTextField.getText().length() > 0) {
                 // data getting logic
                 temp.setCustomerID(companyData.get(companySelectedIndex).getCustomerID());
                 temp.setName(nameTextField.getText());
-                temp.setEmailAddress(emailTextField.getText());
+//                temp.setEmailAddress(emailTextField.getText());
 
                 contactHandler.addContact(temp);
 
@@ -368,17 +395,98 @@ public class MainView {
                 contactData.setAll(setContactListData(companyData.get(companySelectedIndex).getCustomerID()));
                 addInformationStage.close();
             }else {
-                System.out.println(methodTag + "Can't add contact, some fields are empty!");
+                System.out.println(methodTag + "Can't add contact, 'Contact Name' field are empty!");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Whoops!");
                 alert.setHeaderText("Can't Add New Contact");
-                alert.setContentText("Please fill out all fields.");
+                alert.setContentText("Please fill out the 'Contact Name' field.");
                 alert.showAndWait();
             }
         });
     }
-    //endregion
 
-    //region Contact Logic
+    /** BUTTON - logic for editing contact */
+    public void editContactButtonListener(ActionEvent actionEvent){
+        String methodTag = ConsoleTag + "[Button - Save Contact Info] ";
+        Contact temp = new Contact();
+
+        if (contactSelectedIndex > -1) {
+            //region get contact information
+            temp.setContactID(contactData.get(contactSelectedIndex).getContactID());
+            temp.setCustomerID(contactData.get(contactSelectedIndex).getCustomerID());
+            temp.setName(contactNameField.getText());
+            temp.setContactTitle(contactTitleField.getText());
+            temp.setEmailAddress(contactEmailField.getText());
+            temp.setEmailPass(contactEmailPassField.getText());
+            temp.setAlias(contactAliasField.getText());
+            temp.setExtension(contactExtensionField.getText());
+            temp.setFaxNumber(contactFaxNumField.getText());
+            temp.setHomeNumber(contactHomeNumField.getText());
+            temp.setCellNumber(contactCellNumField.getText());
+            temp.setTollFree(contactTollFreeNumField.getText());
+            System.out.println(methodTag + "Contact Data Temp Var: " + temp.toString());
+            //endregion
+
+            // update contact in database
+            contactHandler.updateContact(temp);
+
+            contactNameData.clear();
+            contactData.setAll(setContactListData(companyData.get(companySelectedIndex).getCustomerID()));
+
+        }else{
+            System.out.println(methodTag + "No Contact Selected, Can't Save");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Can't Save Contact Changes");
+            alert.setHeaderText("No Contact Selected!");
+            alert.setContentText("Make sure you've selected a company in the 'Company/Organization' panel");
+            alert.showAndWait();
+        }
+    }
+
+    /** BUTTON - logic for removing contact */
+    public void deleteContactButtonListener(ActionEvent actionEvent){
+        String methodTag = ConsoleTag + "[OnClick - Delete Contact] ";
+        if(companySelectedIndex > -1) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Are you sure you want to delete '" + contactNameData.get(contactSelectedIndex) + "'");
+            alert.setContentText("This will delete the contact and cannot be undone.");
+
+            ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
+
+            if (result == ButtonType.OK) {
+                System.out.println(methodTag + "Attempting to Delete" + "\n\t >> " + contactData.get(contactSelectedIndex));
+
+                contactHandler.removeContact(contactData.get(contactSelectedIndex).getContactID());
+
+                // clear data from textfields
+                contactNameField.clear();
+                contactTitleField.clear();
+                contactEmailField.clear();
+                contactEmailPassField.clear();
+                contactAliasField.clear();
+                contactExtensionField.clear();
+                contactFaxNumField.clear();
+                contactHomeNumField.clear();
+                contactCellNumField.clear();
+                contactTollFreeNumField.clear();
+
+                // refresh data in GUI from database
+                contactNameData.clear();     // clear name list
+                contactData.setAll(setContactListData(companyData.get(companySelectedIndex).getCustomerID()));       // set to updated database
+
+                System.out.println(methodTag + "Deleted Successfully");
+            } else {
+                System.out.println(methodTag + "Contact Deletion cancelled.");
+            }
+        }else{
+            System.out.println(methodTag + " No Contact Selected");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Can't Delete Contact");
+            alert.setHeaderText("No Contact Selected!");
+            alert.setContentText("Make sure you've selected a company in the 'Company/Organization' panel");
+            alert.showAndWait();
+        }
+    }
     //endregion
 }

@@ -28,6 +28,7 @@ package com.bearzwebworks.beardb.db.handler;
 
 import com.bearzwebworks.beardb.db.dbLogic;
 import com.bearzwebworks.beardb.db.model.Contact;
+import com.bearzwebworks.beardb.globalVariables;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -64,6 +65,48 @@ public class contactHandler {
             e.printStackTrace();
         }
 
+    }
+
+    /** update contact information int contact table */
+    public static void updateContact(Contact contact){
+        try {
+            String statement = "UPDATE " + globalVariables.CONTACT_TABLE_NAME + " SET ContactTitle = ?, Name = ?, EmailAddress = ?, EmailPass = ?, Alias = ?, PhoneNumber = ?, Extension = ?, FaxNumber = ?, HomeNumber = ?, CellNumber = ?, TollFree = ? WHERE ContactsID = ?";
+
+            PreparedStatement preparedStatement = dbLogic.connect("EDIT-CONTACT").prepareStatement(statement);
+
+            preparedStatement.setString(1, contact.getContactTitle());
+            preparedStatement.setString(2, contact.getName());
+            preparedStatement.setString(3, contact.getEmailAddress());
+            preparedStatement.setString(4, contact.getEmailPass());
+            preparedStatement.setString(5, contact.getAlias());
+            preparedStatement.setString(6, contact.getPhoneNumber());
+            preparedStatement.setString(7, contact.getExtension());
+            preparedStatement.setString(8, contact.getFaxNumber());
+            preparedStatement.setString(9, contact.getHomeNumber());
+            preparedStatement.setString(10, contact.getCellNumber());
+            preparedStatement.setString(11, contact.getTollFree());
+            preparedStatement.setInt(12, contact.getContactID());
+
+            System.out.println("[DB-EDIT-CONTACT] - Editing Contact.");
+            preparedStatement.executeUpdate();
+            System.out.println("[DB-EDIT-CONTACT]\t -- Done.");
+        }
+        catch (SQLException e){
+            System.out.println("[DB-EDIT-CONTACT-ERR!] - " + e.getMessage());
+            //e.printStackTrace();
+        }
+    }
+
+    /** remove contact from contact table */
+    public static void removeContact(int contactID){
+        try (Connection conn = dbLogic.connect("CONTACT-DELETE");
+             Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("DELETE FROM " + globalVariables.CONTACT_TABLE_NAME + " WHERE ContactsID = " + contactID);
+
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /** get all contact info from table -- uses custom model to access/modify values */

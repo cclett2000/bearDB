@@ -64,14 +64,14 @@ public class customerHandler {
         }
         catch (SQLException e){
             System.out.println("[DB-EDIT-CUSTOMER-ERR!] - " + e.getMessage());
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
     }
 
     /** remove entity (customer) from database */
     //TODO: test other table functionality
-    public static void removeCustomer(int itemId) throws SQLException {
+    public static void removeCustomer(int itemId){
         try (Connection conn = dbLogic.connect("CUSTOMER-DELETE");
              Statement stmt = conn.createStatement()) {
 
