@@ -12,6 +12,7 @@ import com.bearzwebworks.beardb.db.handler.contactHandler;
 import com.bearzwebworks.beardb.db.model.Contact;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -32,6 +33,7 @@ public class Main extends javafx.application.Application {
         scene.getStylesheets().add(String.valueOf(Main.class.getResource("styles/layout.css")));
 
         stage.setTitle("Bearz Company DB Manager");
+        stage.getIcons().add(new Image(String.valueOf(Main.class.getResource("img/logo.png"))));
         stage.setScene(scene);
         stage.setResizable(false);
 
@@ -39,25 +41,6 @@ public class Main extends javafx.application.Application {
     }
 
     public static void main(String[] args) {
-        Contact contact = new Contact();
-
-//        contact.setCustomerID(1);
-//        contact.setContactTitle("Title");
-//        contact.setName("Name");
-//        contact.setEmailAddress("EmailAddy");
-//        contact.setEmailPass("EmailPassy");
-//        contact.setAlias("Alias");
-//        contact.setPhoneNumber("PhoneNumber");
-//        contact.setExtension("Extension");
-//        contact.setFaxNumber("FaxNumber");
-//        contact.setHomeNumber("HomeNumber");
-//        contact.setCellNumber("CellNumber");
-//        contact.setTollFree("TollFree");
-//
-//        contactHandler.addContact(contact);
-//
-//        System.exit(419);
-
         launch();
     }
 }

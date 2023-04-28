@@ -23,6 +23,8 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -194,16 +196,6 @@ public class MainView {
         // Create the add information window controls
         Label nameLabel = new Label("Company Name:");
         TextField nameTextField = new TextField();
-//        Label billingLabel = new Label("Billing:");
-//        TextField billingTextField = new TextField();
-//        Label cityLabel = new Label("City:");
-//        TextField cityTextField = new TextField();
-//        Label stateLabel = new Label("State:");
-//        TextField stateTextField = new TextField();
-//        Label zipLabel = new Label("Zip:");
-//        TextField zipTextField = new TextField();
-//        Label countryLabel = new Label("Country:");
-//        TextField countryTextField = new TextField();
 
         // Add the add information window controls to a layout
         GridPane addInformationLayout = new GridPane();
@@ -211,11 +203,6 @@ public class MainView {
         addInformationLayout.setVgap(10);
         addInformationLayout.setPadding(new Insets(10));
         addInformationLayout.addRow(0, nameLabel, nameTextField);
-//        addInformationLayout.addRow(1, billingLabel, billingTextField);
-//        addInformationLayout.addRow(2, cityLabel, cityTextField);
-//        addInformationLayout.addRow(3, stateLabel, stateTextField);
-//        addInformationLayout.addRow(4, zipLabel, zipTextField);
-//        addInformationLayout.addRow(5, countryLabel, countryTextField);
 
         addInformationLayout.addRow(1, addCompanyButton);
 
@@ -236,15 +223,9 @@ public class MainView {
         // button logic
         // TODO: possibly change to allow adding companies with partial information
         addCompanyButton.setOnAction(e -> {
-            // if(nameTextField.getText().length() > 0 && billingTextField.getText().length() > 0 && cityTextField.getText().length() > 0 && stateTextField.getText().length() > 0 && zipLabel.getText().length() > 0 && countryTextField.getText().length() > 0)
             if(nameTextField.getText().length()  > 0) {
                 // data getting logic
                 temp.setCompanyName(nameTextField.getText());
-//                temp.setBilling(billingTextField.getText());
-//                temp.setCity(cityTextField.getText());
-//                temp.setState(stateTextField.getText());
-//                temp.setZIP(zipTextField.getText());
-//                temp.setCountry(countryTextField.getText());
 
                 customerHandler.addCustomer(temp.getCompanyName(),
                         temp.getBilling(),
@@ -344,65 +325,70 @@ public class MainView {
     /** BUTTON - logic for adding contact */
     public void addContactButtonListener(ActionEvent actionEvent){
         String methodTag = ConsoleTag + "[Button - Add New Company] ";
-        Contact temp = new Contact();
 
-        Button addCompanyButton = new Button();
-        addCompanyButton.setText("Add");
+        if(companySelectedIndex < 0){
+            System.out.println(methodTag + "Can't add contact, No company selected!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Can't Add New Contact");
+            alert.setHeaderText("No Company Selected!");
+            alert.setContentText("Make sure you've selected a company in the 'Company/Organization' panel");
+            alert.showAndWait();
+        }
+        else {
+            Contact temp = new Contact();
 
-        // Create the add information window controls
-        Label nameLabel = new Label("Contact Name:");
-        TextField nameTextField = new TextField();
-//        Label emailLabel = new Label("Email:");
-//        TextField emailTextField = new TextField();
+            Button addCompanyButton = new Button();
+            addCompanyButton.setText("Add");
 
-        // Add the add information window controls to a layout
-        GridPane addInformationLayout = new GridPane();
-        addInformationLayout.setHgap(10);
-        addInformationLayout.setVgap(10);
-        addInformationLayout.setPadding(new Insets(10));
-        addInformationLayout.addRow(0, nameLabel, nameTextField);
-//        addInformationLayout.addRow(1, emailLabel, emailTextField);
+            // Create the add information window controls
+            Label nameLabel = new Label("Contact Name:");
+            TextField nameTextField = new TextField();
 
-        addInformationLayout.addRow(1, addCompanyButton);
+            // Add the add information window controls to a layout
+            GridPane addInformationLayout = new GridPane();
+            addInformationLayout.setHgap(10);
+            addInformationLayout.setVgap(10);
+            addInformationLayout.setPadding(new Insets(10));
+            addInformationLayout.addRow(0, nameLabel, nameTextField);
 
-        // Create the add information window scene
-        // TODO: find a way to ignore OS zoom/font size
-        Scene addInformationScene = new Scene(addInformationLayout, 330, 100);
-        addInformationScene.getStylesheets().add(String.valueOf(Main.class.getResource("styles/layout.css")));
+            addInformationLayout.addRow(1, addCompanyButton);
 
-        // Create the add information window stage
-        Stage addInformationStage = new Stage();
-        addInformationStage.setTitle("Add New Contact");
-        addInformationStage.setScene(addInformationScene);
-        addInformationStage.setResizable(false);
+            // Create the add information window scene
+            // TODO: find a way to ignore OS zoom/font size
+            Scene addInformationScene = new Scene(addInformationLayout, 330, 100);
+            addInformationScene.getStylesheets().add(String.valueOf(Main.class.getResource("styles/layout.css")));
 
-        // Show the add information window
-        addInformationStage.show();
+            // Create the add information window stage
+            Stage addInformationStage = new Stage();
+            addInformationStage.setTitle("Add New Contact");
+            addInformationStage.setScene(addInformationScene);
+            addInformationStage.setResizable(false);
 
-        // button logic
-        // TODO: possibly change to allow adding companies with partial information
-        addCompanyButton.setOnAction(e -> {
-//            if(nameTextField.getText().length() > 0 && emailTextField.getText().length() > 0)
-            if(nameTextField.getText().length() > 0) {
-                // data getting logic
-                temp.setCustomerID(companyData.get(companySelectedIndex).getCustomerID());
-                temp.setName(nameTextField.getText());
-//                temp.setEmailAddress(emailTextField.getText());
+            // Show the add information window
+            addInformationStage.show();
 
-                contactHandler.addContact(temp);
+            // button logic
+            addCompanyButton.setOnAction(e -> {
+                if (nameTextField.getText().length() > 0 && companySelectedIndex > -1) {
+                    // data getting logic
+                    temp.setCustomerID(companyData.get(companySelectedIndex).getCustomerID());
+                    temp.setName(nameTextField.getText());
 
-                contactNameData.clear();
-                contactData.setAll(setContactListData(companyData.get(companySelectedIndex).getCustomerID()));
-                addInformationStage.close();
-            }else {
-                System.out.println(methodTag + "Can't add contact, 'Contact Name' field are empty!");
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Whoops!");
-                alert.setHeaderText("Can't Add New Contact");
-                alert.setContentText("Please fill out the 'Contact Name' field.");
-                alert.showAndWait();
-            }
-        });
+                    contactHandler.addContact(temp);
+
+                    contactNameData.clear();
+                    contactData.setAll(setContactListData(companyData.get(companySelectedIndex).getCustomerID()));
+                    addInformationStage.close();
+                } else {
+                    System.out.println(methodTag + "Can't add contact, 'Contact Name' field are empty!");
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Whoops!");
+                    alert.setHeaderText("Can't Add New Contact");
+                    alert.setContentText("Please fill out the 'Contact Name' field.");
+                    alert.showAndWait();
+                }
+            });
+        }
     }
 
     /** BUTTON - logic for editing contact */
