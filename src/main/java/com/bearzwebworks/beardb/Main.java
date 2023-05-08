@@ -32,7 +32,7 @@ public class Main extends javafx.application.Application {
 
         scene.getStylesheets().add(String.valueOf(Main.class.getResource("styles/layout.css")));
 
-        stage.setTitle("Bearz Company DB Manager");
+        stage.setTitle("Company Information Manager");
         stage.getIcons().add(new Image(String.valueOf(Main.class.getResource("img/logo.png"))));
         stage.setScene(scene);
         stage.setResizable(false);
