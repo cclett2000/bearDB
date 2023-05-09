@@ -14,7 +14,6 @@ import com.bearzwebworks.beardb.db.model.Contact;
 import com.bearzwebworks.beardb.db.model.Customer;
 import com.bearzwebworks.beardb.db.model.Project;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 
 import static com.bearzwebworks.beardb.fx_controllers.MainView.*;
 
