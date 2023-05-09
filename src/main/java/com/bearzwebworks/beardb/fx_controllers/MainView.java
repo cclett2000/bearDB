@@ -12,6 +12,7 @@ import com.bearzwebworks.beardb.db.handler.contactHandler;
 import com.bearzwebworks.beardb.db.handler.customerHandler;
 import com.bearzwebworks.beardb.db.model.Contact;
 import com.bearzwebworks.beardb.db.model.Customer;
+import com.bearzwebworks.beardb.db.model.Project;
 import com.bearzwebworks.beardb.globalVariables;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,12 +45,18 @@ public class MainView {
     protected static ObservableList<String> contactNameData = FXCollections.observableArrayList();
     protected static ObservableList<Contact> contactData = FXCollections.observableArrayList();
 
+    // PROJECT
+    protected static ObservableList<String> projectNameData = FXCollections.observableArrayList();
+    protected static ObservableList<Project> projectData = FXCollections.observableArrayList();
+
     protected int companySelectedIndex = -1;  // store index of the selected company
     protected int contactSelectedIndex = -1;  // store index of selected contact
+    protected int projectSelectedIndex = -1;  // store index of selected project
 
     //region FXML ListViews
     @FXML protected ListView<String> companyListView;   // customer name list for GUI
     @FXML protected ListView<String> contactListView;   // contact name list for GUI
+    @FXML protected ListView<String> projectListView;   // project name list for GUI
     //endregion
 
     //region FXML TextFields
@@ -76,14 +83,24 @@ public class MainView {
     @FXML private TextField contactCellNumField;
     @FXML private TextField contactTollFreeNumField;
 
-    /** section placeholder */
+    /** PROJECT METADATA */
+    //radio button
+    @FXML private RadioButton payTypeMonthlyRadBtn;
+    @FXML private RadioButton payTypeYearlyRadBtn;
+
+    @FXML private TextField hostStartDateField;
+    @FXML private TextField hostEndDateField;
+    @FXML private TextField domainExpirationField;
+    @FXML private TextField costField;
 
     //endregion
 
     public void initialize(){
         version.setText(globalVariables.VERSION);
+
         companyListView.setItems(companyNamesData);
         contactListView.setItems(contactNameData);
+        projectListView.setItems(projectNameData);
 
         // ensures first item clicked returns the right index
         companyListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
@@ -92,6 +109,11 @@ public class MainView {
             } //endif
         });
         contactListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.intValue() != -1) {
+                contactSelectedIndex = newValue.intValue();    // set index
+            } //endif
+        });
+        projectListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.intValue() != -1) {
                 contactSelectedIndex = newValue.intValue();    // set index
             } //endif
