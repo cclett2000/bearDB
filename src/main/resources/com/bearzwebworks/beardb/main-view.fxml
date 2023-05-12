@@ -56,48 +56,48 @@ Unauthorized use or distribution of this code may result in legal action.
                      <children>
                         <Pane layoutX="10.0" layoutY="10.0" prefHeight="789.0" prefWidth="832.0">
                            <children>
-                              <Text fill="WHITE" layoutX="218.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Billing" wrappingWidth="181.9830722808838">
+                              <Text fill="WHITE" layoutX="218.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Billing" wrappingWidth="181.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="220.0" layoutY="478.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country" wrappingWidth="201.9830722808838">
+                              <Text fill="WHITE" layoutX="220.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country" wrappingWidth="201.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="218.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="254.0">
+                              <Text fill="WHITE" layoutX="218.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="254.0">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="479.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ZIP" wrappingWidth="91.98307228088379">
+                              <Text fill="WHITE" layoutX="479.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ZIP" wrappingWidth="91.98307228088379">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <TextField fx:id="companyBillingField" layoutX="218.0" layoutY="210.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="companyCountryField" layoutX="218.0" layoutY="492.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="companyNameField" layoutX="218.0" layoutY="137.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="companyZipField" layoutX="479.0" layoutY="354.0" prefHeight="27.0" prefWidth="135.0" />
-                              <Text fill="WHITE" layoutX="218.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State" wrappingWidth="181.9830722808838">
+                              <TextField fx:id="companyBillingField" layoutX="218.0" layoutY="207.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="companyCountryField" layoutX="218.0" layoutY="502.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="companyNameField" layoutX="218.0" layoutY="134.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="companyZipField" layoutX="479.0" layoutY="357.0" prefHeight="27.0" prefWidth="135.0" />
+                              <Text fill="WHITE" layoutX="218.0" layoutY="414.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State" wrappingWidth="181.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="218.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City" wrappingWidth="254.0">
+                              <Text fill="WHITE" layoutX="218.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City" wrappingWidth="254.0">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <TextField fx:id="companyStateField" layoutX="218.0" layoutY="417.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="companyCityField" layoutX="218.0" layoutY="282.0" prefHeight="27.0" prefWidth="396.0" />
-                              <Button fx:id="companyEditSaveButton" layoutX="376.0" layoutY="638.0" mnemonicParsing="false" onAction="#editCompanyButtonListener" prefHeight="37.0" prefWidth="80.0" text="Save">
+                              <TextField fx:id="companyStateField" layoutX="218.0" layoutY="427.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="companyCityField" layoutX="218.0" layoutY="279.0" prefHeight="27.0" prefWidth="396.0" />
+                              <Button fx:id="companyEditSaveButton" layoutX="376.0" layoutY="604.0" mnemonicParsing="false" onAction="#editCompanyButtonListener" prefHeight="37.0" prefWidth="80.0" text="Save">
                                  <font>
                                     <Font name="DINPro-Medium" size="18.0" />
                                  </font>
                               </Button>
-                              <Label layoutX="168.0" layoutY="686.0" prefHeight="18.0" text="Saving will also save any comments in the 'Comments' pane for the current company." textFill="WHITE">
+                              <Label layoutX="168.0" layoutY="652.0" prefHeight="18.0" text="Saving will also save any comments in the 'Comments' pane for the current company." textFill="WHITE">
                                  <font>
                                     <Font name="DINPro-Medium" size="13.0" />
                                  </font>
@@ -129,12 +129,12 @@ Unauthorized use or distribution of this code may result in legal action.
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="639.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost" wrappingWidth="153.9830722808838">
+                              <Text fill="WHITE" layoutX="654.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost" wrappingWidth="153.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="638.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Design Cost" wrappingWidth="153.9830722808838">
+                              <Text fill="WHITE" layoutX="654.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Design Cost" wrappingWidth="153.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
@@ -186,8 +186,8 @@ Unauthorized use or distribution of this code may result in legal action.
                                     <Font name="DINPro-Medium" size="18.0" />
                                  </font>
                               </Button>
-                              <TextField fx:id="designCostField" layoutX="639.0" layoutY="242.0" prefHeight="27.0" prefWidth="188.0" />
-                              <TextField fx:id="costField" layoutX="639.0" layoutY="318.0" prefHeight="27.0" prefWidth="188.0" />
+                              <TextField fx:id="designCostField" layoutX="655.0" layoutY="242.0" prefHeight="27.0" prefWidth="172.0" />
+                              <TextField fx:id="costField" layoutX="655.0" layoutY="317.0" prefHeight="27.0" prefWidth="172.0" />
                               <RadioButton fx:id="payTypeMonthlyRadBtn" layoutX="540.0" layoutY="162.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="89.0" text="Monthly" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
@@ -210,6 +210,16 @@ Unauthorized use or distribution of this code may result in legal action.
                               <Text fill="WHITE" layoutX="13.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Project(s)" wrappingWidth="204.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="24.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="638.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" wrappingWidth="10.983072280883789">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="638.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" wrappingWidth="10.983072280883789">
+                                 <font>
+                                    <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
                            </children>
@@ -294,7 +304,7 @@ Unauthorized use or distribution of this code may result in legal action.
                                  </font>
                               </Text>
                               <TextField fx:id="contactTitleField" layoutX="439.0" layoutY="164.0" prefHeight="27.0" prefWidth="396.0" />
-                              <Text fill="WHITE" layoutX="358.0" layoutY="662.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Extension" textAlignment="CENTER" wrappingWidth="130.9830722808838">
+                              <Text fill="WHITE" layoutX="358.0" layoutY="662.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Extension" textAlignment="CENTER" wrappingWidth="130.0">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
