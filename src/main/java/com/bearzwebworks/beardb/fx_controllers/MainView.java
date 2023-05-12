@@ -10,6 +10,7 @@ package com.bearzwebworks.beardb.fx_controllers;
 import com.bearzwebworks.beardb.Main;
 import com.bearzwebworks.beardb.db.handler.contactHandler;
 import com.bearzwebworks.beardb.db.handler.customerHandler;
+import com.bearzwebworks.beardb.db.handler.projectHandler;
 import com.bearzwebworks.beardb.db.model.Contact;
 import com.bearzwebworks.beardb.db.model.Customer;
 import com.bearzwebworks.beardb.db.model.Project;
@@ -30,11 +31,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
-
-import static com.bearzwebworks.beardb.fx_controllers.MainViewHelper.setCompanyListData;
-import static com.bearzwebworks.beardb.fx_controllers.MainViewHelper.setContactListData;
+import java.time.LocalDate;
+import java.util.function.UnaryOperator;
 
 public class MainView {
+    final boolean DEBUG_MODE = true;
     static String ConsoleTag = "[GUI-MAIN-VIEW]";
 
     // CUSTOMER
@@ -54,9 +55,9 @@ public class MainView {
     protected int projectSelectedIndex = -1;  // store index of selected project
 
     //region FXML ListViews
-    @FXML protected ListView<String> companyListView;   // customer name list for GUI
-    @FXML protected ListView<String> contactListView;   // contact name list for GUI
-    @FXML protected ListView<String> projectListView;   // project name list for GUI
+    @FXML protected ListView<String> companyListView = new ListView<>();   // customer name list for GUI
+    @FXML protected ListView<String> contactListView = new ListView<>();   // contact name list for GUI
+    @FXML protected ListView<String> projectListView = new ListView<>();   // project name list for GUI
     //endregion
 
     //region FXML TextFields
@@ -88,16 +89,52 @@ public class MainView {
     @FXML private RadioButton payTypeMonthlyRadBtn;
     @FXML private RadioButton payTypeYearlyRadBtn;
 
-    @FXML private TextField hostStartDateField;
-    @FXML private TextField hostEndDateField;
-    @FXML private TextField domainExpirationField;
-    @FXML private TextField costField;
+    @FXML private DatePicker hostStartDateField;
+    @FXML private DatePicker hostEndDateField;
+    @FXML private DatePicker domainExpirationField;
 
+    @FXML private TextField costField;
+    @FXML private TextField designCostField;
+
+    @FXML private TextField urlField;
+    @FXML private TextField wooCommerceUsernameField;
+    @FXML private TextField wooCommercePasswordField;
+    @FXML private TextField wooCommerceSerialField;
+    @FXML private TextField wordpressAddressField;
+    @FXML private TextField wordpressLoginField;
+    @FXML private TextField wordpressPasswordField;
     //endregion
 
     public void initialize(){
         version.setText(globalVariables.VERSION);
 
+        // init radio button listener
+        payTypeMonthlyRadBtn.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                // if radioButton1 is selected, clear the selection of radioButton2
+                payTypeYearlyRadBtn.setSelected(false);
+            }
+        });
+        payTypeYearlyRadBtn.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                // if radioButton1 is selected, clear the selection of radioButton2
+                payTypeMonthlyRadBtn.setSelected(false);
+            }
+        });
+
+        // will hopefully only allow numeric values for the textfields
+        costField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*\\.?\\d*")) {
+                costField.setText(oldValue);
+            }
+        });
+        designCostField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*\\.?\\d*")) {
+                designCostField.setText(oldValue);
+            }
+        });
+
+        // init name data
         companyListView.setItems(companyNamesData);
         contactListView.setItems(contactNameData);
         projectListView.setItems(projectNameData);
@@ -115,7 +152,7 @@ public class MainView {
         });
         projectListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.intValue() != -1) {
-                contactSelectedIndex = newValue.intValue();    // set index
+                projectSelectedIndex = newValue.intValue();    // set index
             } //endif
         });
     }
@@ -146,11 +183,14 @@ public class MainView {
         companyCommentsField.setText(temp.getComments());
         //endregion
 
-
         /** POPULATE CONTACT LIST LOGIC */
-        // purge contact data to ensure list is updated and not duplicated
-        contactNameData.clear();
+        contactNameData.clear();                                        // purge contact data to ensure list is updated and not duplicated
         contactData.setAll(setContactListData(temp.getCustomerID()));
+
+        /** POPULATE PROJECT LIST LOGIC */
+        projectNameData.clear();                                        // purge project data to ensure list is updated and not duplicated
+        projectData.setAll(setProjectListData(temp.getCustomerID()));
+
     }
 
     /** BUTTON - logic for deleting company and it's data */
@@ -189,8 +229,27 @@ public class MainView {
                 contactCellNumField.clear();
                 contactTollFreeNumField.clear();
 
+                payTypeMonthlyRadBtn.setSelected(false);
+                payTypeYearlyRadBtn.setSelected(false);
+
+                hostStartDateField.setValue(null);
+                hostEndDateField.setValue(null);
+                domainExpirationField.setValue(null);
+
+                costField.clear();
+                designCostField.clear();
+
+                urlField.clear();
+                wooCommerceUsernameField.clear();
+                wooCommercePasswordField.clear();
+                wooCommerceSerialField.clear();
+                wordpressAddressField.clear();
+                wordpressLoginField.clear();
+                wordpressPasswordField.clear();
+
                 // refresh data in GUI from database
                 contactNameData.clear();
+                projectNameData.clear();
                 companyNamesData.clear();                       // clear name list
                 companyData.setAll(setCompanyListData());       // set to updated database
 
@@ -312,6 +371,242 @@ public class MainView {
     //endregion
 
     //region Project Logic
+    /** LIST_CLICK - Logic for clicking on a project name in the listView */
+    public void projectItemClicked(){
+        String methodTag = ConsoleTag + "[OnClick - Project]";
+
+        // get index of the item clicked
+        projectListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.intValue() != -1) {
+                projectSelectedIndex = newValue.intValue();    // set index
+            } //endif
+        });
+
+        Project temp = projectData.get(projectSelectedIndex);
+
+        System.out.println(methodTag + " Index: " + projectSelectedIndex + " | ID: " + temp.getProjectID() + " | Name: " + projectListView.getSelectionModel().getSelectedItem() + " | ");
+
+        //region populate company information
+
+        // set radio button according to db pay type data
+        if(temp.getIsMonthly() == 1){
+            payTypeYearlyRadBtn.setSelected(false);
+            payTypeMonthlyRadBtn.setSelected(true);
+        }
+        if(temp.getIsYearly() == 1){
+            payTypeMonthlyRadBtn.setSelected(false);
+            payTypeYearlyRadBtn.setSelected(true);
+        }
+
+
+        // parse and show dates from db
+        if(temp.getHostingBeginDate() != null )
+            hostStartDateField.setValue(LocalDate.parse(temp.getHostingBeginDate()));
+        else
+            hostStartDateField.setValue(null);
+
+        if(temp.getHostingEndDate() != null)
+            hostEndDateField.setValue(LocalDate.parse(temp.getHostingEndDate()));
+        else
+            hostEndDateField.setValue(null);
+
+        if(temp.getDomainExpiration() != null)
+            domainExpirationField.setValue(LocalDate.parse(temp.getDomainExpiration()));
+        else
+            domainExpirationField.setValue(null);
+
+
+        urlField.setText(temp.getURL());
+        costField.setText(String.valueOf(temp.getHostingPayment()));                    // GUI is Cost, DB is HostingPayment -- no idea why the OG db/gui has such a disparity but it's too much of a hassle tp change the recreated db now XD
+        designCostField.setText(String.valueOf(temp.getWebDesignCost()));
+        wooCommerceUsernameField.setText(temp.getWooCommerceUser());
+        wooCommercePasswordField.setText(temp.getWooCommercePass());
+        wooCommerceSerialField.setText(temp.getWooCommerceSerial());
+        wordpressAddressField.setText(temp.getWordpressAddress());
+        wordpressLoginField.setText(temp.getWordpressLogin());
+        wordpressPasswordField.setText(temp.getWordpressPassword());
+        //endregion
+    }
+
+    /** BUTTON - logic for adding project */
+    public void addProjectButtonListener(ActionEvent actionEvent){
+        String methodTag = ConsoleTag + "[Button - Add New Project] ";
+
+        if(companySelectedIndex < 0){
+            System.out.println(methodTag + "Can't add project, No company selected!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Can't Add New Project");
+            alert.setHeaderText("No Company Selected!");
+            alert.setContentText("Make sure you've selected a company in the 'Company/Organization' panel");
+            alert.showAndWait();
+        }
+        else {
+            Project temp = new Project();
+
+            Button addProjectButton = new Button();
+            addProjectButton.setText("Add");
+
+            // Create the add information window controls
+            Label UrlLabel = new Label("Project URL:");
+            TextField UrlField = new TextField();
+
+            // Add the add information window controls to a layout
+            GridPane addInformationLayout = new GridPane();
+            addInformationLayout.setHgap(10);
+            addInformationLayout.setVgap(10);
+            addInformationLayout.setPadding(new Insets(10));
+            addInformationLayout.addRow(0, UrlLabel, UrlField);
+
+            addInformationLayout.addRow(1, addProjectButton);
+
+            // Create the add information window scene
+            Scene addInformationScene = new Scene(addInformationLayout, 330, 100);
+            addInformationScene.getStylesheets().add(String.valueOf(Main.class.getResource("styles/layout.css")));
+
+            // Create the add information window stage
+            Stage addInformationStage = new Stage();
+            addInformationStage.setTitle("Add New Project");
+            addInformationStage.setScene(addInformationScene);
+            addInformationStage.setResizable(false);
+
+            // Show the add information window
+            addInformationStage.show();
+
+            // button logic
+            addProjectButton.setOnAction(e -> {
+                if (UrlField.getText().length() > 0 && companySelectedIndex > -1) {
+                    // data getting logic
+                    temp.setCustomerID(companyData.get(companySelectedIndex).getCustomerID());
+                    temp.setURL(UrlField.getText());
+
+                    projectHandler.addProject(temp);
+
+                    projectNameData.clear();
+                    projectData.setAll(setProjectListData(companyData.get(companySelectedIndex).getCustomerID()));
+                    addInformationStage.close();
+                } else {
+                    System.out.println(methodTag + "Can't add project, 'Project URL' field is empty!");
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Whoops!");
+                    alert.setHeaderText("Can't Add New Project");
+                    alert.setContentText("Please fill out the 'Project URL' field.");
+                    alert.showAndWait();
+                }
+            });
+        }
+    }
+
+    /** BUTTON - logic for editing project */
+    public void editProjectButtonListener(ActionEvent actionEvent){
+        String methodTag = ConsoleTag + "[Button - Save Project Info] ";
+        Project temp = new Project();
+
+        if (projectSelectedIndex > -1) {
+            //region get contact information
+            if(payTypeMonthlyRadBtn.isSelected()) {
+                temp.setIsMonthly(1);
+                temp.setIsYearly(0);
+            }
+
+            if(payTypeYearlyRadBtn.isSelected()){
+                temp.setIsYearly(1);
+                temp.setIsMonthly(0);
+            }
+
+            // date null check
+            if (hostStartDateField.getValue() != null)
+                temp.setHostingBeginDate(hostStartDateField.getValue().toString());
+            if(hostEndDateField.getValue() != null)
+                temp.setHostingEndDate(hostEndDateField.getValue().toString());
+            if(domainExpirationField.getValue() != null)
+                temp.setDomainExpiration(domainExpirationField.getValue().toString());
+
+            temp.setProjectID(projectData.get(projectSelectedIndex).getProjectID());
+            temp.setCustomerID(projectData.get(projectSelectedIndex).getCustomerID());
+            temp.setHostingPayment(Double.parseDouble(costField.getText()));
+            temp.setWebDesignCost(Double.parseDouble(designCostField.getText()));
+            temp.setURL(urlField.getText());
+            temp.setWooCommerceUser(wooCommerceUsernameField.getText());
+            temp.setWooCommercePass(wooCommercePasswordField.getText());
+            temp.setWooCommerceSerial(wooCommerceSerialField.getText());
+            temp.setWordpressAddress(wordpressAddressField.getText());
+            temp.setWordpressLogin(wordpressLoginField.getText());
+            temp.setWordpressPassword(wordpressPasswordField.getText());
+
+            if(DEBUG_MODE)
+                System.out.println(methodTag + "Project Data Temp Var: " + temp.toString());
+            //endregion
+
+            // update contact in database
+            projectHandler.updateProject(temp);
+
+            projectNameData.clear();
+            projectData.setAll(setProjectListData(companyData.get(companySelectedIndex).getCustomerID()));
+
+        }else{
+            System.out.println(methodTag + "No Project Selected, Can't Save");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Can't Save Project Changes");
+            alert.setHeaderText("No Project Selected!");
+            alert.setContentText("Make sure you've selected a company in the 'Company/Organization' panel");
+            alert.showAndWait();
+        }
+    }
+
+    /** BUTTON - logic for removing project */
+    public void deleteProjectButtonListener(ActionEvent actionEvent){
+        String methodTag = ConsoleTag + "[OnClick - Delete Project] ";
+        if(companySelectedIndex > -1) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Are you sure you want to delete '" + projectNameData.get(projectSelectedIndex) + "'");
+            alert.setContentText("This will delete the project and cannot be undone.");
+
+            ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
+
+            if (result == ButtonType.OK) {
+                if (DEBUG_MODE)
+                    System.out.println(methodTag + "Attempting to Delete" + "\n\t >> " + projectData.get(projectSelectedIndex));
+
+                projectHandler.removeProject(projectData.get(projectSelectedIndex).getProjectID());
+
+                // clear data from textfields
+                payTypeMonthlyRadBtn.setSelected(false);
+                payTypeYearlyRadBtn.setSelected(false);
+
+                hostStartDateField.setValue(null);
+                hostEndDateField.setValue(null);
+                domainExpirationField.setValue(null);
+
+                costField.clear();
+                designCostField.clear();
+
+                urlField.clear();
+                wooCommerceUsernameField.clear();
+                wooCommercePasswordField.clear();
+                wooCommerceSerialField.clear();
+                wordpressAddressField.clear();
+                wordpressLoginField.clear();
+                wordpressPasswordField.clear();
+
+
+                // refresh data in GUI from database
+                projectNameData.clear();     // clear name list
+                projectData.setAll(setProjectListData(companyData.get(companySelectedIndex).getCustomerID()));       // set to updated database
+
+                System.out.println(methodTag + "Deleted Successfully");
+            } else {
+                System.out.println(methodTag + "Project Deletion cancelled.");
+            }
+        }else{
+            System.out.println(methodTag + " No Project Selected");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Can't Delete Project");
+            alert.setHeaderText("No Project Selected!");
+            alert.setContentText("Make sure you've selected a company in the 'Company/Organization' panel");
+            alert.showAndWait();
+        }
+    }
     //endregion
 
     //region Contact Logic
@@ -346,7 +641,7 @@ public class MainView {
 
     /** BUTTON - logic for adding contact */
     public void addContactButtonListener(ActionEvent actionEvent){
-        String methodTag = ConsoleTag + "[Button - Add New Company] ";
+        String methodTag = ConsoleTag + "[Button - Add New Contact] ";
 
         if(companySelectedIndex < 0){
             System.out.println(methodTag + "Can't add contact, No company selected!");
@@ -495,6 +790,62 @@ public class MainView {
             alert.setContentText("Make sure you've selected a company in the 'Company/Organization' panel");
             alert.showAndWait();
         }
+    }
+    //endregion
+
+    //region UTIL
+    /** create observable list for company dataset and store name in another list for listview */
+    protected static ObservableList<Customer> setCompanyListData (){
+        ObservableList<Customer> companyData;
+
+        System.out.println(ConsoleTag + " Populating Company List...");
+        companyData = customerHandler.getCustomerData();    // get data from db via customerHandler
+
+        // add names to observable list
+        for (Customer companyDatum : companyData) {
+            companyNamesData.add(companyDatum.getCompanyName());
+        } //endloop
+
+        System.out.println("\t >> (" + companyNamesData.size() + ") Name List: " + companyNamesData);
+        System.out.println(ConsoleTag + " Populating Company List Done.");
+
+        return companyData;
+    }
+
+    /** create observable list for contact dataset and store name in another list for listview */
+    protected static ObservableList<Contact> setContactListData(int customerID){
+        ObservableList<Contact> contactData;
+
+        System.out.println(ConsoleTag + " Populating Contact List...");
+        contactData = contactHandler.getContactData(customerID);    // get data from db via customerHandler
+
+        // add names to observable list
+        for (Contact contactDatum : contactData) {
+            contactNameData.add(contactDatum.getName());
+        } //endloop
+
+        System.out.println("\t >> (" + contactNameData.size() + ") Name List: " + contactNameData);
+        System.out.println(ConsoleTag + " Populating Contact List Done.");
+
+        return contactData;
+    }
+
+    /** create observable list for project dataset and store name in another list for listview */
+    protected static ObservableList<Project> setProjectListData(int customerID){
+        ObservableList<Project> projectData;
+
+        System.out.println(ConsoleTag + " Populating Project List...");
+        projectData = projectHandler.getProjectData(customerID);    // get data from db via projectHandler
+
+        // add names to observable list
+        for (Project projectDatum : projectData) {
+            projectNameData.add(projectDatum.getURL());
+        } //endloop
+
+        System.out.println("\t >> (" + projectNameData.size() + ") Project List: " + projectNameData);
+        System.out.println(ConsoleTag + " Populating Project List Done.");
+
+        return projectData;
     }
     //endregion
 }

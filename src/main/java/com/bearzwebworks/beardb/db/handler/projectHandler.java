@@ -30,7 +30,6 @@
 package com.bearzwebworks.beardb.db.handler;
 
 import com.bearzwebworks.beardb.db.dbLogic;
-import com.bearzwebworks.beardb.db.model.Contact;
 import com.bearzwebworks.beardb.db.model.Project;
 import com.bearzwebworks.beardb.globalVariables;
 import javafx.collections.FXCollections;
@@ -39,30 +38,29 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 
 public class projectHandler {
-    static final boolean DEBUG = false;
+    static final boolean DEBUG = true;
 
      /** add new project to project table */
     public static void addProject(Project projectData) {
         try {
-            String statement = "INSERT INTO Project (ProjectName,CustomerID,HostingBeginDate,HostingEndDate,HostingPayment,WebDesignCost,DomainExpiration,URL,WordpressAddress,WordpressLogin,WordpressPassword,WooCommerceUser,WooCommercePass,WooCommerceSerial,isMonthly,isYearly) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String statement = "INSERT INTO Project (CustomerID,HostingBeginDate,HostingEndDate,HostingPayment,WebDesignCost,DomainExpiration,URL,WordpressAddress,WordpressLogin,WordpressPassword,WooCommerceUser,WooCommercePass,WooCommerceSerial,Monthly,Yearly) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = dbLogic.connect("ADD-PROJECT").prepareStatement(statement);
 
-            preparedStatement.setString(1, projectData.getProjectName());
-            preparedStatement.setInt(2, projectData.getCustomerID());
-            preparedStatement.setString(3, projectData.getHostingBeginDate());
-            preparedStatement.setString(4, projectData.getHostingEndDate());
-            preparedStatement.setDouble(5, projectData.getHostingPayment());
-            preparedStatement.setDouble(6, projectData.getWebDesignCost());
-            preparedStatement.setString(7, projectData.getDomainExpiration());
-            preparedStatement.setString(8, projectData.getURL());
-            preparedStatement.setString(9, projectData.getWordpressAddress());
-            preparedStatement.setString(10, projectData.getWordpressLogin());
-            preparedStatement.setString(11, projectData.getWordpressPassword());
-            preparedStatement.setString(12, projectData.getWooCommerceUser());
-            preparedStatement.setString(13, projectData.getWordpressPassword());
-            preparedStatement.setString(14, projectData.getWooCommerceSerial());
-            preparedStatement.setInt(15, projectData.getIsMonthly());
-            preparedStatement.setInt(16, projectData.getIsYearly());
+            preparedStatement.setInt(1, projectData.getCustomerID());
+            preparedStatement.setString(2, projectData.getHostingBeginDate());
+            preparedStatement.setString(3, projectData.getHostingEndDate());
+            preparedStatement.setDouble(4, projectData.getHostingPayment());
+            preparedStatement.setDouble(5, projectData.getWebDesignCost());
+            preparedStatement.setString(6, projectData.getDomainExpiration());
+            preparedStatement.setString(7, projectData.getURL());
+            preparedStatement.setString(8, projectData.getWordpressAddress());
+            preparedStatement.setString(9, projectData.getWordpressLogin());
+            preparedStatement.setString(10, projectData.getWordpressPassword());
+            preparedStatement.setString(11, projectData.getWooCommerceUser());
+            preparedStatement.setString(12, projectData.getWordpressPassword());
+            preparedStatement.setString(13, projectData.getWooCommerceSerial());
+            preparedStatement.setInt(14, projectData.getIsMonthly());
+            preparedStatement.setInt(15, projectData.getIsYearly());
 
             System.out.println("[DB-ADD-PROJECT] - Adding New Project - CustomerID=" +projectData.getCustomerID());
             preparedStatement.executeUpdate();
@@ -78,26 +76,26 @@ public class projectHandler {
     /** update project information in project table */
     public static void updateProject(Project p) {
         try {
-            String statement = "UPDATE " + globalVariables.PROJECT_TABLE_NAME + " SET ProjectName=?, CustomerID=?, HostingBeginDate=?, HostingEndDate=?, HostingPayment=?, WebDesignCost=?, DomainExpiration=?, URL=?, WordpressAddress=?, WordpressLogin=?, WordpressPassword=?, WooCommerceUser=?, WooCommercePass=?, WooCommerceSerial=?, isMonthly=?, isYearly=? WHERE ProjectID = ?";
+            String statement = "UPDATE " + globalVariables.PROJECT_TABLE_NAME + " SET CustomerID=?, HostingBeginDate=?, HostingEndDate=?, HostingPayment=?, WebDesignCost=?, DomainExpiration=?, URL=?, WordpressAddress=?, WordpressLogin=?, WordpressPassword=?, WooCommerceUser=?, WooCommercePass=?, WooCommerceSerial=?, Monthly=?, Yearly=? WHERE ProjectID = ?";
 
             PreparedStatement preparedStatement = dbLogic.connect("EDIT-PROJECT").prepareStatement(statement);
 
-            preparedStatement.setString(1, p.getProjectName());
-            preparedStatement.setInt(2, p.getCustomerID());
-            preparedStatement.setString(3, p.getHostingBeginDate());
-            preparedStatement.setString(4, p.getHostingEndDate());
-            preparedStatement.setDouble(5, p.getHostingPayment());
-            preparedStatement.setDouble(6, p.getWebDesignCost());
-            preparedStatement.setString(7, p.getDomainExpiration());
-            preparedStatement.setString(8, p.getURL());
-            preparedStatement.setString(9, p.getWordpressAddress());
-            preparedStatement.setString(10, p.getWordpressLogin());
-            preparedStatement.setString(11, p.getWordpressPassword());
-            preparedStatement.setString(12, p.getWooCommerceUser());
+            preparedStatement.setInt(1, p.getCustomerID());
+            preparedStatement.setString(2, p.getHostingBeginDate());
+            preparedStatement.setString(3, p.getHostingEndDate());
+            preparedStatement.setDouble(4, p.getHostingPayment());
+            preparedStatement.setDouble(5, p.getWebDesignCost());
+            preparedStatement.setString(6, p.getDomainExpiration());
+            preparedStatement.setString(7, p.getURL());
+            preparedStatement.setString(8, p.getWordpressAddress());
+            preparedStatement.setString(9, p.getWordpressLogin());
+            preparedStatement.setString(10, p.getWordpressPassword());
+            preparedStatement.setString(11, p.getWooCommerceUser());
             preparedStatement.setString(12, p.getWooCommercePass());
-            preparedStatement.setString(14, p.getWooCommerceSerial());
-            preparedStatement.setInt(15, p.getIsMonthly());
-            preparedStatement.setInt(16, p.getIsYearly());
+            preparedStatement.setString(13, p.getWooCommerceSerial());
+            preparedStatement.setInt(14, p.getIsMonthly());
+            preparedStatement.setInt(15, p.getIsYearly());
+            preparedStatement.setInt(16, p.getProjectID());
 
             System.out.println("[DB-EDIT-PROJECT] - Editing Project.");
             preparedStatement.executeUpdate();
@@ -105,7 +103,8 @@ public class projectHandler {
         }
         catch (SQLException e){
             System.out.println("[DB-EDIT-PROJECT-ERR!] - " + e.getMessage());
-            //e.printStackTrace();
+            if(DEBUG)
+                e.printStackTrace();
         }
 
     }
@@ -143,7 +142,7 @@ public class projectHandler {
             while(rs.next()){
                 Project temp = new Project();
 
-                temp.setProjectName(rs.getString("ProjectName"));
+                temp.setProjectID(rs.getInt("ProjectID"));
                 temp.setCustomerID(rs.getInt("CustomerID"));
                 temp.setHostingBeginDate(rs.getString("HostingBeginDate"));
                 temp.setHostingEndDate(rs.getString("HostingEndDate"));
