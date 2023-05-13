@@ -8,15 +8,13 @@
 package com.bearzwebworks.beardb;
 
 import com.bearzwebworks.beardb.db.dbLogic;
-import com.bearzwebworks.beardb.db.handler.contactHandler;
-import com.bearzwebworks.beardb.db.model.Contact;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class Main extends javafx.application.Application {
     @Override
@@ -30,7 +28,14 @@ public class Main extends javafx.application.Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
-        scene.getStylesheets().add(String.valueOf(Main.class.getResource("styles/layout.css")));
+        URL cssURL = getClass().getResource("styles/layout.css");
+        if (cssURL != null) {
+            String cssPath = cssURL.toExternalForm();
+            scene.getStylesheets().add(cssPath);
+        }
+        else{
+            throw new NullPointerException("CSS File Not Found");
+        }
 
         stage.setTitle("Company Information Manager");
         stage.getIcons().add(new Image(String.valueOf(Main.class.getResource("img/logo.png"))));

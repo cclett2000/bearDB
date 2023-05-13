@@ -9,6 +9,48 @@
     -fx-font-size: 15px;
 }
 
-.list-view .list-cell:even {
--fx-text-fill: black;
+.title-bar {
+    -fx-background-color: #0047AB;
+    -fx-border-width: 0;
+}
+
+.button {
+    -fx-background-color: #0047AB;
+    -fx-text-fill: white;
+}
+
+.list-view {
+    -fx-font-size: 17px;
+    -fx-background-radius: 5px;
+}
+
+.list-view .scroll-bar:vertical{
+    -fx-background-radius: 15px;
+}
+
+.tab-pane .tab-header-area .tab-header-background{
+    -fx-background-color: transparent;
+}
+
+.tab{
+    -fx-padding: 0.2em 1.5em;
+    -fx-background-insets: 0 1.5 0 1.5;
+    -fx-background-color: #0047AB;
+}
+
+.focus-indicator{
+    -fx-border-color: transparent;
+}
+
+.tab:selected{
+    -fx-background-color: #4169E1;
+}
+
+.tab-label{
+    -fx-text-fill: white;
+    -fx-alignment: CENTER;
+}
+
+.text-field{
+    -fx-font-size: 15px;
 }

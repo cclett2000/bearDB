@@ -15,24 +15,22 @@ import com.bearzwebworks.beardb.db.model.Contact;
 import com.bearzwebworks.beardb.db.model.Customer;
 import com.bearzwebworks.beardb.db.model.Project;
 import com.bearzwebworks.beardb.globalVariables;
+import com.bearzwebworks.beardb.util.copyrightHandler;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.function.UnaryOperator;
 
 public class MainView {
     final boolean DEBUG_MODE = true;
@@ -59,6 +57,17 @@ public class MainView {
     @FXML protected ListView<String> contactListView = new ListView<>();   // contact name list for GUI
     @FXML protected ListView<String> projectListView = new ListView<>();   // project name list for GUI
     //endregion
+
+    //region Filtered Lists -- Search Feature
+    protected FilteredList<String> companyNameFilteredList = new FilteredList<>(companyNamesData);
+    protected FilteredList<Customer> companyDataFilteredList = new FilteredList<>(companyData);
+
+    protected FilteredList<String> contactNameFilteredList = new FilteredList<>(contactNameData);
+    protected FilteredList<Contact> contactDataFilteredList = new FilteredList<>(contactData);
+
+    protected FilteredList<String> projectNameFilteredList = new FilteredList<>(projectNameData);
+    protected FilteredList<Project> projectDataFilteredList = new FilteredList<>(projectData);
+    //endRegion
 
     //region FXML TextFields
     @FXML private Label version;
@@ -103,10 +112,19 @@ public class MainView {
     @FXML private TextField wordpressAddressField;
     @FXML private TextField wordpressLoginField;
     @FXML private TextField wordpressPasswordField;
+
+    /** SEARCH BAR STUFF */
+    @FXML private TextField companySearchBar;
+    @FXML private TextField projectSearchBar;
+    @FXML private TextField contactSearchBar;
+
+    /** ABOUT STUFF */
+    @FXML private Text copyrightField;
     //endregion
 
     public void initialize(){
         version.setText(globalVariables.VERSION);
+        copyrightField.setText(copyrightHandler.getCopyright());
 
         // init radio button listener
         payTypeMonthlyRadBtn.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -139,6 +157,11 @@ public class MainView {
         contactListView.setItems(contactNameData);
         projectListView.setItems(projectNameData);
 
+        //search init
+        companySearchInit();
+        projectSearchInit();
+        contactSearchInit();
+
         // ensures first item clicked returns the right index
         companyListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.intValue() != -1) {
@@ -169,7 +192,7 @@ public class MainView {
                 companySelectedIndex = newValue.intValue();    // set index
             } //endif
         });
-        Customer temp = companyData.get(companySelectedIndex);
+        Customer temp = companyDataFilteredList.get(companySelectedIndex);
 
         System.out.println(methodTag + " Index: " + companySelectedIndex + " | ID: " + temp.getCustomerID() + " | Name: " + companyListView.getSelectionModel().getSelectedItem() + " | ");
 
@@ -199,53 +222,18 @@ public class MainView {
         if(companySelectedIndex > -1) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
-            alert.setHeaderText("Are you sure you want to delete '" + companyNamesData.get(companySelectedIndex) + "'");
+            alert.setHeaderText("Are you sure you want to delete '" + companyNameFilteredList.get(companySelectedIndex) + "'");
             alert.setContentText("This will delete all data relative to this company and cannot be undone.");
 
             ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
 
             if (result == ButtonType.OK) {
-                System.out.println(methodTag + "Attempting to Delete" + "\n\t >> " + companyData.get(companySelectedIndex));
+                System.out.println(methodTag + "Attempting to Delete" + "\n\t >> " + companyDataFilteredList.get(companySelectedIndex));
 
-                customerHandler.removeCustomer(companyData.get(companySelectedIndex).getCustomerID());
+                customerHandler.removeCustomer(companyDataFilteredList.get(companySelectedIndex).getCustomerID());
 
-                // clear data from textfields
-                companyNameField.clear();
-                companyBillingField.clear();
-                companyCityField.clear();
-                companyZipField.clear();
-                companyStateField.clear();
-                companyCountryField.clear();
-                companyCommentsField.clear();
-
-                contactNameField.clear();
-                contactTitleField.clear();
-                contactEmailField.clear();
-                contactEmailPassField.clear();
-                contactAliasField.clear();
-                contactExtensionField.clear();
-                contactFaxNumField.clear();
-                contactHomeNumField.clear();
-                contactCellNumField.clear();
-                contactTollFreeNumField.clear();
-
-                payTypeMonthlyRadBtn.setSelected(false);
-                payTypeYearlyRadBtn.setSelected(false);
-
-                hostStartDateField.setValue(null);
-                hostEndDateField.setValue(null);
-                domainExpirationField.setValue(null);
-
-                costField.clear();
-                designCostField.clear();
-
-                urlField.clear();
-                wooCommerceUsernameField.clear();
-                wooCommercePasswordField.clear();
-                wooCommerceSerialField.clear();
-                wordpressAddressField.clear();
-                wordpressLoginField.clear();
-                wordpressPasswordField.clear();
+                clearCompanySearchButtonListener(actionEvent);
+                clearAllFields("all");
 
                 // refresh data in GUI from database
                 contactNameData.clear();
@@ -304,7 +292,21 @@ public class MainView {
         // button logic
         // TODO: possibly change to allow adding companies with partial information
         addCompanyButton.setOnAction(e -> {
-            if(nameTextField.getText().length()  > 0) {
+            if (nameTextField.getText().length() == 0){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Whoops!");
+                alert.setHeaderText("Can't Add New Company");
+                alert.setContentText("Please fill out the 'Company Name' field.");
+                alert.showAndWait();
+            }
+            else if (companyNamesData.contains(nameTextField.getText())){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Whoops!");
+                alert.setHeaderText("Can't Add New Company");
+                alert.setContentText("Company Already Exists!");
+                alert.showAndWait();
+            }
+            else {
                 // data getting logic
                 temp.setCompanyName(nameTextField.getText());
 
@@ -317,14 +319,11 @@ public class MainView {
 
                 companyNamesData.clear();
                 companyData.setAll(setCompanyListData());
+
+                clearCompanySearchButtonListener(actionEvent);
+                clearAllFields("all");
+
                 addInformationStage.close();
-            }else {
-                System.out.println(methodTag + "Can't add company, 'Company Name' field is empty!");
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Whoops!");
-                alert.setHeaderText("Can't Add New Company");
-                alert.setContentText("Please fill out the 'Company Name' field.");
-                alert.showAndWait();
             }
         });
     }
@@ -358,6 +357,10 @@ public class MainView {
 
             companyNamesData.clear();
             companyData.setAll(setCompanyListData());
+            companySelectedIndex = -1;
+
+            clearCompanySearchButtonListener(actionEvent);
+            clearAllFields("all");
 
         }else{
             System.out.println(methodTag + "No Company Selected, Can't Save");
@@ -382,7 +385,7 @@ public class MainView {
             } //endif
         });
 
-        Project temp = projectData.get(projectSelectedIndex);
+        Project temp = projectDataFilteredList.get(projectSelectedIndex);
 
         System.out.println(methodTag + " Index: " + projectSelectedIndex + " | ID: " + temp.getProjectID() + " | Name: " + projectListView.getSelectionModel().getSelectedItem() + " | ");
 
@@ -393,11 +396,14 @@ public class MainView {
             payTypeYearlyRadBtn.setSelected(false);
             payTypeMonthlyRadBtn.setSelected(true);
         }
-        if(temp.getIsYearly() == 1){
+        else if(temp.getIsYearly() == 1){
             payTypeMonthlyRadBtn.setSelected(false);
             payTypeYearlyRadBtn.setSelected(true);
         }
-
+        else{
+            payTypeMonthlyRadBtn.setSelected(false);
+            payTypeYearlyRadBtn.setSelected(false);
+        }
 
         // parse and show dates from db
         if(temp.getHostingBeginDate() != null )
@@ -474,23 +480,35 @@ public class MainView {
 
             // button logic
             addProjectButton.setOnAction(e -> {
-                if (UrlField.getText().length() > 0 && companySelectedIndex > -1) {
-                    // data getting logic
-                    temp.setCustomerID(companyData.get(companySelectedIndex).getCustomerID());
-                    temp.setURL(UrlField.getText());
-
-                    projectHandler.addProject(temp);
-
-                    projectNameData.clear();
-                    projectData.setAll(setProjectListData(companyData.get(companySelectedIndex).getCustomerID()));
-                    addInformationStage.close();
-                } else {
+                if (projectNameData.contains(UrlField.getText())){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Whoops!");
+                    alert.setHeaderText("Can't Add New Project");
+                    alert.setContentText("Project Already Exists!");
+                    alert.showAndWait();
+                }
+                else if (UrlField.getText().isEmpty()){
                     System.out.println(methodTag + "Can't add project, 'Project URL' field is empty!");
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Whoops!");
                     alert.setHeaderText("Can't Add New Project");
                     alert.setContentText("Please fill out the 'Project URL' field.");
                     alert.showAndWait();
+                }
+                else {
+                    // data getting logic
+                    temp.setCustomerID(companyDataFilteredList.get(companySelectedIndex).getCustomerID());
+                    temp.setURL(UrlField.getText());
+
+                    projectHandler.addProject(temp);
+
+                    projectNameData.clear();
+                    projectData.setAll(setProjectListData(companyDataFilteredList.get(companySelectedIndex).getCustomerID()));
+
+                    clearProjectSearchButtonListener(actionEvent);
+                    clearAllFields("project");
+
+                    addInformationStage.close();
                 }
             });
         }
@@ -521,8 +539,8 @@ public class MainView {
             if(domainExpirationField.getValue() != null)
                 temp.setDomainExpiration(domainExpirationField.getValue().toString());
 
-            temp.setProjectID(projectData.get(projectSelectedIndex).getProjectID());
-            temp.setCustomerID(projectData.get(projectSelectedIndex).getCustomerID());
+            temp.setProjectID(projectDataFilteredList.get(projectSelectedIndex).getProjectID());
+            temp.setCustomerID(projectDataFilteredList.get(projectSelectedIndex).getCustomerID());
             temp.setHostingPayment(Double.parseDouble(costField.getText()));
             temp.setWebDesignCost(Double.parseDouble(designCostField.getText()));
             temp.setURL(urlField.getText());
@@ -541,7 +559,12 @@ public class MainView {
             projectHandler.updateProject(temp);
 
             projectNameData.clear();
-            projectData.setAll(setProjectListData(companyData.get(companySelectedIndex).getCustomerID()));
+            projectData.setAll(setProjectListData(companyDataFilteredList.get(companySelectedIndex).getCustomerID()));
+
+            clearAllFields("project");
+            clearProjectSearchButtonListener(actionEvent);
+
+            projectSelectedIndex = -1;
 
         }else{
             System.out.println(methodTag + "No Project Selected, Can't Save");
@@ -559,43 +582,27 @@ public class MainView {
         if(companySelectedIndex > -1) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
-            alert.setHeaderText("Are you sure you want to delete '" + projectNameData.get(projectSelectedIndex) + "'");
+            alert.setHeaderText("Are you sure you want to delete '" + projectNameFilteredList.get(projectSelectedIndex) + "'");
             alert.setContentText("This will delete the project and cannot be undone.");
 
             ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
 
             if (result == ButtonType.OK) {
                 if (DEBUG_MODE)
-                    System.out.println(methodTag + "Attempting to Delete" + "\n\t >> " + projectData.get(projectSelectedIndex));
+                    System.out.println(methodTag + "Attempting to Delete" + "\n\t >> " + projectDataFilteredList.get(projectSelectedIndex));
 
-                projectHandler.removeProject(projectData.get(projectSelectedIndex).getProjectID());
-
-                // clear data from textfields
-                payTypeMonthlyRadBtn.setSelected(false);
-                payTypeYearlyRadBtn.setSelected(false);
-
-                hostStartDateField.setValue(null);
-                hostEndDateField.setValue(null);
-                domainExpirationField.setValue(null);
-
-                costField.clear();
-                designCostField.clear();
-
-                urlField.clear();
-                wooCommerceUsernameField.clear();
-                wooCommercePasswordField.clear();
-                wooCommerceSerialField.clear();
-                wordpressAddressField.clear();
-                wordpressLoginField.clear();
-                wordpressPasswordField.clear();
-
+                projectHandler.removeProject(projectDataFilteredList.get(projectSelectedIndex).getProjectID());
 
                 // refresh data in GUI from database
                 projectNameData.clear();     // clear name list
-                projectData.setAll(setProjectListData(companyData.get(companySelectedIndex).getCustomerID()));       // set to updated database
+                projectData.setAll(setProjectListData(companyDataFilteredList.get(companySelectedIndex).getCustomerID()));       // set to updated database
+
+                clearAllFields("project");
+                clearProjectSearchButtonListener(actionEvent);
 
                 System.out.println(methodTag + "Deleted Successfully");
-            } else {
+            }
+            else {
                 System.out.println(methodTag + "Project Deletion cancelled.");
             }
         }else{
@@ -621,11 +628,11 @@ public class MainView {
             } //endif
         });
 
-        Contact temp = contactData.get(contactSelectedIndex);
+        Contact temp = contactDataFilteredList.get(contactSelectedIndex);
 
         System.out.println(methodTag + " Index: " + contactSelectedIndex + " | ID: " + temp.getContactID() + " | Name: " + contactListView.getSelectionModel().getSelectedItem() + " | ");
 
-        //region populate company information
+        //region populate contact information
         contactNameField.setText(temp.getName());
         contactTitleField.setText(temp.getContactTitle());
         contactEmailField.setText(temp.getEmailAddress());
@@ -686,23 +693,34 @@ public class MainView {
 
             // button logic
             addCompanyButton.setOnAction(e -> {
-                if (nameTextField.getText().length() > 0 && companySelectedIndex > -1) {
-                    // data getting logic
-                    temp.setCustomerID(companyData.get(companySelectedIndex).getCustomerID());
-                    temp.setName(nameTextField.getText());
-
-                    contactHandler.addContact(temp);
-
-                    contactNameData.clear();
-                    contactData.setAll(setContactListData(companyData.get(companySelectedIndex).getCustomerID()));
-                    addInformationStage.close();
-                } else {
-                    System.out.println(methodTag + "Can't add contact, 'Contact Name' field are empty!");
+                if (contactNameData.contains(nameTextField.getText())){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Whoops!");
+                    alert.setHeaderText("Can't Add New Contact");
+                    alert.setContentText("Contact Already Exists!");
+                    alert.showAndWait();
+                }
+                else if (nameTextField.getText().isEmpty()){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Whoops!");
                     alert.setHeaderText("Can't Add New Contact");
                     alert.setContentText("Please fill out the 'Contact Name' field.");
                     alert.showAndWait();
+                }
+                else {
+                    // data getting logic
+                    temp.setCustomerID(companyDataFilteredList.get(companySelectedIndex).getCustomerID());
+                    temp.setName(nameTextField.getText());
+
+                    contactHandler.addContact(temp);
+
+                    contactNameData.clear();
+                    contactData.setAll(setContactListData(companyDataFilteredList.get(companySelectedIndex).getCustomerID()));
+
+                    clearAllFields("contact");
+                    clearContactSearchButtonListener(actionEvent);
+
+                    addInformationStage.close();
                 }
             });
         }
@@ -715,8 +733,8 @@ public class MainView {
 
         if (contactSelectedIndex > -1) {
             //region get contact information
-            temp.setContactID(contactData.get(contactSelectedIndex).getContactID());
-            temp.setCustomerID(contactData.get(contactSelectedIndex).getCustomerID());
+            temp.setContactID(contactDataFilteredList.get(contactSelectedIndex).getContactID());
+            temp.setCustomerID(contactDataFilteredList.get(contactSelectedIndex).getCustomerID());
             temp.setName(contactNameField.getText());
             temp.setContactTitle(contactTitleField.getText());
             temp.setEmailAddress(contactEmailField.getText());
@@ -734,7 +752,12 @@ public class MainView {
             contactHandler.updateContact(temp);
 
             contactNameData.clear();
-            contactData.setAll(setContactListData(companyData.get(companySelectedIndex).getCustomerID()));
+            contactData.setAll(setContactListData(companyDataFilteredList.get(companySelectedIndex).getCustomerID()));
+
+            clearContactSearchButtonListener(actionEvent);
+            clearAllFields("contact");
+
+            contactSelectedIndex = -1;
 
         }else{
             System.out.println(methodTag + "No Contact Selected, Can't Save");
@@ -752,15 +775,15 @@ public class MainView {
         if(companySelectedIndex > -1) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
-            alert.setHeaderText("Are you sure you want to delete '" + contactNameData.get(contactSelectedIndex) + "'");
+            alert.setHeaderText("Are you sure you want to delete '" + contactNameFilteredList.get(contactSelectedIndex) + "'");
             alert.setContentText("This will delete the contact and cannot be undone.");
 
             ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
 
             if (result == ButtonType.OK) {
-                System.out.println(methodTag + "Attempting to Delete" + "\n\t >> " + contactData.get(contactSelectedIndex));
+                System.out.println(methodTag + "Attempting to Delete" + "\n\t >> " + contactDataFilteredList.get(contactSelectedIndex));
 
-                contactHandler.removeContact(contactData.get(contactSelectedIndex).getContactID());
+                contactHandler.removeContact(contactDataFilteredList.get(contactSelectedIndex).getContactID());
 
                 // clear data from textfields
                 contactNameField.clear();
@@ -776,7 +799,10 @@ public class MainView {
 
                 // refresh data in GUI from database
                 contactNameData.clear();     // clear name list
-                contactData.setAll(setContactListData(companyData.get(companySelectedIndex).getCustomerID()));       // set to updated database
+                contactData.setAll(setContactListData(companyDataFilteredList.get(companySelectedIndex).getCustomerID()));       // set to updated database
+
+                clearContactSearchButtonListener(actionEvent);
+                clearAllFields("contact");
 
                 System.out.println(methodTag + "Deleted Successfully");
             } else {
@@ -846,6 +872,161 @@ public class MainView {
         System.out.println(ConsoleTag + " Populating Project List Done.");
 
         return projectData;
+    }
+
+    /** clear company search bar logic */
+    public void clearCompanySearchButtonListener(ActionEvent actionEvent){
+        companySearchBar.clear();
+    }
+    /** clear project search bar logic */
+    public void clearProjectSearchButtonListener(ActionEvent actionEvent){
+        projectSearchBar.clear();
+    }
+    /** clear contact search bar logic */
+    public void clearContactSearchButtonListener(ActionEvent actionEvent){
+        contactSearchBar.clear();
+    }
+
+    /** clear textfields; arg selection = 'all', 'company', 'contact', 'project' */
+    private void clearAllFields(String clearType){
+        //COMPANY
+        if (clearType.equals("all") || clearType.equals("company")) {
+            // clear data from textfields
+            companyNameField.clear();
+            companyBillingField.clear();
+            companyCityField.clear();
+            companyZipField.clear();
+            companyStateField.clear();
+            companyCountryField.clear();
+            companyCommentsField.clear();
+        }
+
+        // CONTACT
+        if (clearType.equals("all") || clearType.equals("contact")) {
+            contactNameField.clear();
+            contactTitleField.clear();
+            contactEmailField.clear();
+            contactEmailPassField.clear();
+            contactAliasField.clear();
+            contactExtensionField.clear();
+            contactFaxNumField.clear();
+            contactHomeNumField.clear();
+            contactCellNumField.clear();
+            contactTollFreeNumField.clear();
+        }
+
+        // PROJECT
+        if (clearType.equals("all") || clearType.equals("project")) {
+            payTypeMonthlyRadBtn.setSelected(false);
+            payTypeYearlyRadBtn.setSelected(false);
+
+            hostStartDateField.setValue(null);
+            hostEndDateField.setValue(null);
+            domainExpirationField.setValue(null);
+
+            costField.clear();
+            designCostField.clear();
+
+            urlField.clear();
+            wooCommerceUsernameField.clear();
+            wooCommercePasswordField.clear();
+            wooCommerceSerialField.clear();
+            wordpressAddressField.clear();
+            wordpressLoginField.clear();
+            wordpressPasswordField.clear();
+        }
+    }
+    //endregion
+
+    //region SEARCH
+    /** company search bar logic method */
+    protected void companySearchInit(){
+        companySearchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            String companySearchText = newValue.toLowerCase().trim();
+            if (companySearchText.isEmpty()) {
+                companyNameFilteredList.setPredicate(null);
+                companyDataFilteredList.setPredicate(null);
+            }
+            else{
+                // Otherwise, show only items that contain the search text
+                companyNameFilteredList.setPredicate(item -> item.toLowerCase().contains(companySearchText));
+
+                // modified to sync with name list
+                companyDataFilteredList.setPredicate(item -> item.getCompanyName().toLowerCase().contains(companySearchText));
+            }
+            companyListView.setItems(companyNameFilteredList);
+        });
+        // Add a ListChangeListener to update the filtered list whenever the original list changes
+        companyNamesData.addListener((ListChangeListener<String>) change -> {
+            while (change.next()) {
+                if (change.wasAdded() || change.wasRemoved()) {
+                    companyNameFilteredList.setPredicate(null); // Clear the predicate to ensure all items are shown
+
+                    // reset data to show all
+                    companyListView.setItems(companyNameFilteredList);
+                }
+            }
+        });
+    }
+
+    /** company search bar logic method */
+    protected void projectSearchInit(){
+        projectSearchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            String projectSearchText = newValue.toLowerCase().trim();
+            if (projectSearchText.isEmpty()) {
+                projectNameFilteredList.setPredicate(null);
+                projectDataFilteredList.setPredicate(null);
+            }
+            else{
+                // Otherwise, show only items that contain the search text
+                projectNameFilteredList.setPredicate(item -> item.toLowerCase().contains(projectSearchText));
+
+                // modified to sync with name list
+                projectDataFilteredList.setPredicate(item -> item.getURL().toLowerCase().contains(projectSearchText));
+            }
+            projectListView.setItems(projectNameFilteredList);
+        });
+        // Add a ListChangeListener to update the filtered list whenever the original list changes
+        projectNameData.addListener((ListChangeListener<String>) change -> {
+            while (change.next()) {
+                if (change.wasAdded() || change.wasRemoved()) {
+                    projectNameFilteredList.setPredicate(null); // Clear the predicate to ensure all items are shown
+
+                    // reset data to show all
+                    projectListView.setItems(projectNameFilteredList);
+                }
+            }
+        });
+    }
+
+    /** company search bar logic method */
+    protected void contactSearchInit(){
+        contactSearchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            String contactSearchText = newValue.toLowerCase().trim();
+            if (contactSearchText.isEmpty()) {
+                contactNameFilteredList.setPredicate(null);
+                contactDataFilteredList.setPredicate(null);
+            }
+            else{
+                // Otherwise, show only items that contain the search text
+                contactNameFilteredList.setPredicate(item -> item.toLowerCase().contains(contactSearchText));
+
+                // modified to sync with name list
+                contactDataFilteredList.setPredicate(item -> item.getName().toLowerCase().contains(contactSearchText));
+            }
+            contactListView.setItems(contactNameFilteredList);
+        });
+        // Add a ListChangeListener to update the filtered list whenever the original list changes
+        contactNameData.addListener((ListChangeListener<String>) change -> {
+            while (change.next()) {
+                if (change.wasAdded() || change.wasRemoved()) {
+                    contactNameFilteredList.setPredicate(null); // Clear the predicate to ensure all items are shown
+
+                    // reset data to show all
+                    contactListView.setItems(contactNameFilteredList);
+                }
+            }
+        });
     }
     //endregion
 }

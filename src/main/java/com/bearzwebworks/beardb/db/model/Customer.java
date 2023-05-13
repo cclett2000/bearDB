@@ -19,6 +19,13 @@ public class Customer {
     private String Country;
     private String Comments;
 
+    public boolean matches(String searchString) {
+        String name = getCompanyName().toLowerCase();
+        searchString = searchString.toLowerCase();
+
+        return name.contains(searchString);
+    }
+
     @Override
     public String toString() {
         return "Customer{" +

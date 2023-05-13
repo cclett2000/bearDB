@@ -32,7 +32,7 @@ Unauthorized use or distribution of this code may result in legal action.
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="820.0" layoutX="-10.0" layoutY="-8.0" stroke="BLACK" strokeType="INSIDE" width="1297.0">
          <fill>
-            <RadialGradient centerX="0.6888888888888889" centerY="0.5" radius="0.9651162790697675">
+            <RadialGradient centerY="1.0" focusAngle="-99.46" radius="1.0">
                <stops>
                   <Stop>
                      <color>
@@ -48,7 +48,7 @@ Unauthorized use or distribution of this code may result in legal action.
             </RadialGradient>
          </fill>
       </Rectangle>
-      <TabPane blendMode="SRC_ATOP" layoutX="396.0" prefHeight="811.0" prefWidth="884.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+      <TabPane blendMode="SRC_ATOP" layoutX="394.0" layoutY="1.0" prefHeight="791.0" prefWidth="886.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
         <tabs>
             <Tab text="Company Info">
               <content>
@@ -149,32 +149,32 @@ Unauthorized use or distribution of this code may result in legal action.
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="432.0" layoutY="489.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Address" wrappingWidth="181.9830722808838">
+                              <Text fill="WHITE" layoutX="431.0" layoutY="492.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Address" wrappingWidth="181.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="430.0" layoutY="572.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Login" wrappingWidth="153.9830722808838">
+                              <Text fill="WHITE" layoutX="429.0" layoutY="575.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Login" wrappingWidth="153.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="431.0" layoutY="655.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Password" wrappingWidth="201.9830722808838">
+                              <Text fill="WHITE" layoutX="430.0" layoutY="658.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wordpress Password" wrappingWidth="201.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="13.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Username" wrappingWidth="254.0">
+                              <Text fill="WHITE" layoutX="12.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Username" wrappingWidth="254.0">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="12.0" layoutY="572.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Password" wrappingWidth="240.9830722808838">
+                              <Text fill="WHITE" layoutX="11.0" layoutY="575.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Password" wrappingWidth="240.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="13.0" layoutY="655.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Serial" wrappingWidth="210.9830722808838">
+                              <Text fill="WHITE" layoutX="12.0" layoutY="658.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WooCommerce Serial" wrappingWidth="210.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
@@ -200,12 +200,12 @@ Unauthorized use or distribution of this code may result in legal action.
                               </RadioButton>
                               <DatePicker fx:id="domainExpirationField" layoutX="433.0" layoutY="392.0" prefWidth="188.0" />
                               <TextField fx:id="urlField" layoutX="432.0" layoutY="72.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wordpressAddressField" layoutX="432.0" layoutY="504.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wordpressLoginField" layoutX="431.0" layoutY="586.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wordpressPasswordField" layoutX="431.0" layoutY="669.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wooCommerceUsernameField" layoutX="13.0" layoutY="504.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wooCommercePasswordField" layoutX="12.0" layoutY="586.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="wooCommerceSerialField" layoutX="13.0" layoutY="669.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wordpressAddressField" layoutX="431.0" layoutY="507.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wordpressLoginField" layoutX="430.0" layoutY="589.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wordpressPasswordField" layoutX="430.0" layoutY="672.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wooCommerceUsernameField" layoutX="12.0" layoutY="507.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wooCommercePasswordField" layoutX="11.0" layoutY="589.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="wooCommerceSerialField" layoutX="12.0" layoutY="672.0" prefHeight="27.0" prefWidth="396.0" />
                               <ListView fx:id="projectListView" layoutX="12.0" layoutY="45.0" onMouseClicked="#projectItemClicked" prefHeight="340.0" prefWidth="393.0" />
                               <Text fill="WHITE" layoutX="13.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Project(s)" wrappingWidth="204.9830722808838">
                                  <font>
@@ -222,11 +222,13 @@ Unauthorized use or distribution of this code may result in legal action.
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
+                              <TextField fx:id="projectSearchBar" layoutX="12.0" layoutY="392.0" prefHeight="27.0" prefWidth="176.0" promptText="Search..." />
+                              <Button layoutX="188.0" layoutY="391.8" mnemonicParsing="false" onAction="#clearProjectSearchButtonListener" text="X" textAlignment="CENTER" />
                            </children>
                         </Pane>
                         <Button fx:id="deleteProjectButton" layoutX="350.0" layoutY="406.0" mnemonicParsing="false" onAction="#deleteProjectButtonListener" text="Delete" />
                         <Button fx:id="addProjectButton" layoutX="284.0" layoutY="406.0" mnemonicParsing="false" onAction="#addProjectButtonListener" prefHeight="27.0" prefWidth="56.0" text="Add" />
-                        <Separator layoutX="-4.0" layoutY="462.0" prefHeight="12.0" prefWidth="884.0" />
+                        <Separator layoutX="11.0" layoutY="462.0" prefHeight="12.0" prefWidth="884.0" />
                      </children>
                   </AnchorPane>
             </content>
@@ -235,14 +237,14 @@ Unauthorized use or distribution of this code may result in legal action.
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Pane prefHeight="800.0" prefWidth="860.0">
+                        <Pane prefHeight="811.0" prefWidth="860.0">
                            <children>
                               <Text fill="WHITE" layoutX="19.0" layoutY="511.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone (Fax)" wrappingWidth="201.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="19.0" layoutY="585.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone (Home)" wrappingWidth="181.9830722808838">
+                              <Text fill="WHITE" layoutX="19.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone (Home)" wrappingWidth="181.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
@@ -252,7 +254,7 @@ Unauthorized use or distribution of this code may result in legal action.
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="437.0" layoutY="585.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone (Toll-Free)" wrappingWidth="201.9830722808838">
+                              <Text fill="WHITE" layoutX="437.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone (Toll-Free)" wrappingWidth="201.9830722808838">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
@@ -263,9 +265,9 @@ Unauthorized use or distribution of this code may result in legal action.
                                  </font>
                               </Button>
                               <TextField fx:id="contactFaxNumField" layoutX="19.0" layoutY="522.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="contactHomeNumField" layoutX="19.0" layoutY="596.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="contactHomeNumField" layoutX="19.0" layoutY="604.0" prefHeight="27.0" prefWidth="396.0" />
                               <TextField fx:id="contactCellNumField" layoutX="439.0" layoutY="522.0" prefHeight="27.0" prefWidth="396.0" />
-                              <TextField fx:id="contactTollFreeNumField" layoutX="438.0" layoutY="596.0" prefHeight="27.0" prefWidth="396.0" />
+                              <TextField fx:id="contactTollFreeNumField" layoutX="438.0" layoutY="604.0" prefHeight="27.0" prefWidth="396.0" />
                               <ListView fx:id="contactListView" layoutX="20.0" layoutY="59.0" onMouseClicked="#contactItemClicked" prefHeight="340.0" prefWidth="393.0" />
                               <Text fill="WHITE" layoutX="21.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact(s)" wrappingWidth="204.9830722808838">
                                  <font>
@@ -304,13 +306,15 @@ Unauthorized use or distribution of this code may result in legal action.
                                  </font>
                               </Text>
                               <TextField fx:id="contactTitleField" layoutX="439.0" layoutY="164.0" prefHeight="27.0" prefWidth="396.0" />
-                              <Text fill="WHITE" layoutX="358.0" layoutY="662.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Extension" textAlignment="CENTER" wrappingWidth="130.0">
+                              <Text fill="WHITE" layoutX="358.0" layoutY="678.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Extension" textAlignment="CENTER" wrappingWidth="130.0">
                                  <font>
                                     <Font name="DINPro-Medium" size="20.0" />
                                  </font>
                               </Text>
-                              <TextField fx:id="contactExtensionField" layoutX="358.0" layoutY="673.0" prefHeight="27.0" prefWidth="130.0" />
-                              <Separator layoutX="-14.0" layoutY="462.0" prefHeight="12.0" prefWidth="884.0" />
+                              <TextField fx:id="contactExtensionField" layoutX="358.0" layoutY="689.0" prefHeight="27.0" prefWidth="130.0" />
+                              <Separator layoutX="11.0" layoutY="462.0" prefHeight="12.0" prefWidth="884.0" />
+                              <TextField fx:id="contactSearchBar" layoutX="20.0" layoutY="406.0" prefHeight="27.0" prefWidth="176.0" promptText="Search..." />
+                              <Button layoutX="196.0" layoutY="405.8" mnemonicParsing="false" onAction="#clearContactSearchButtonListener" text="X" textAlignment="CENTER" />
                            </children>
                         </Pane>
                      </children></AnchorPane>
@@ -318,18 +322,18 @@ Unauthorized use or distribution of this code may result in legal action.
           </Tab>
         </tabs>
       </TabPane>
-      <AnchorPane layoutX="7.0" layoutY="5.0" prefHeight="791.0" prefWidth="382.0">
+      <AnchorPane layoutX="6.0" layoutY="7.0" prefHeight="791.0" prefWidth="382.0">
          <children>
             <TextArea fx:id="companyCommentsField" layoutX="5.0" layoutY="478.0" prefHeight="285.0" prefWidth="372.0" />
             <Button fx:id="deleteCompanyButton" layoutX="314.0" layoutY="401.0" mnemonicParsing="false" onAction="#deleteCompanyButtonListener" text="Delete" />
             <Button fx:id="addCompanyButton" layoutX="248.0" layoutY="400.0" mnemonicParsing="false" onAction="#addCompanyButtonListener" prefHeight="27.0" prefWidth="56.0" text="Add" />
             <ListView fx:id="companyListView" layoutX="5.0" layoutY="54.0" onMouseClicked="#companyItemClicked" prefHeight="340.0" prefWidth="372.0" />
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="6.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company/Organization">
+            <Text fill="WHITE" layoutX="6.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company/Organization">
                <font>
                   <Font name="DINPro-Medium" size="24.0" />
                </font>
             </Text>
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="6.0" layoutY="466.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments">
+            <Text fill="WHITE" layoutX="6.0" layoutY="466.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments">
                <font>
                   <Font name="DINPro-Medium" size="24.0" />
                </font>
@@ -339,12 +343,19 @@ Unauthorized use or distribution of this code may result in legal action.
                   <Font name="DINPro-Medium" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="version" layoutX="5.0" layoutY="772.0" text="Version: " textFill="WHITE">
+            <Label fx:id="version" layoutX="6.0" layoutY="769.0" text="Version: " textFill="WHITE">
                <font>
-                  <Font name="DINPro-Medium" size="13.0" />
+                  <Font name="HoloLens MDL2 Assets" size="12.0" />
                </font>
             </Label>
+            <TextField fx:id="companySearchBar" layoutX="5.0" layoutY="400.0" prefHeight="27.0" prefWidth="176.0" promptText="Search..." />
+            <Button layoutX="181.0" layoutY="399.95" maxWidth="26.0" mnemonicParsing="false" onAction="#clearCompanySearchButtonListener" prefHeight="26.0" text="X" textAlignment="CENTER" />
          </children>
       </AnchorPane>
+      <Text fx:id="copyrightField" fill="WHITE" layoutX="727.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COPYRIGHT" textAlignment="RIGHT" wrappingWidth="546.0">
+         <font>
+            <Font name="HoloLens MDL2 Assets" size="12.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
