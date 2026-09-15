@@ -12,7 +12,7 @@ Also fun fact, my doggo _Bear_ was used for the logo/icon!
 
 <hr>
 
-> <img width="66%" alt="image" src="https://github.com/user-attachments/assets/ec6b26d2-c98b-4154-b605-bcc040add9fd" />
+> <img width="66%" alt="image" src="https://github.com/user-attachments/assets/277ae2ec-84f0-4250-8820-393e4b6139c1" />
 
 <br>
 
