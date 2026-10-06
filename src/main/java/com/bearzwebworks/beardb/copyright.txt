@@ -1,3 +1,5 @@
+No longer needed as this is now open source...dunno what I was thinking as a fresh grad.
+
 --JAVA--
 /**
  * Copyright (c) 2023 Charles Lett Jr. All rights reserved.
