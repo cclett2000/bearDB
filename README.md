@@ -1,7 +1,7 @@
 # Bearz Company Information Manager
 
 A basic CRUD application I wrote on request, utilizing Java, JavaFX (for the UI), and SQLite. This was my first large, non-academic, project 
-during college (and boy does it show XD). After 3 years of being a private repository, I have decided to make it public!
+during college (and boy does it show XD). After 3 years of being a private repository, I have decided to make it public (and open source)!
 
 This is an entirely local hosted application, meaning that any data saved never leaves the user's system. At one point I did consider a cloud-based solution but decided against it as I was still new to projects of this scale and there was NO WAY I had the security knowhow to undertake something like this at the time...I may rewrite this with a cleaner UI one day, who knows!
 
