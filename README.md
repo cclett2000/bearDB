@@ -26,7 +26,7 @@ Also fun fact, my doggo _Bear_ was used for the logo/icon!
 
 ## License
 
-    Copyright [2026] [Charles Lett Jr.]
+    Copyright 2026 Charles Lett Jr.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
