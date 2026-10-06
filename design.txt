@@ -1,0 +1,56 @@
+======JAVAFX-NOTES======
+Similar to android; #<method-name> calls method from class specified in 'fx:controller'
+    - <Button text="Test" onAction="#onHelloButtonClick"/>
+fx:id == variable in comp. class
+    - <Label fx:id="welcomeText" text="Label"/>
+	
+Remember to use 'fx:id'
+
+======LANG======
+	> Java - GUI, Algorithm
+	> SQLite - DB
+	
+======GUI=======
+	- window named "Customers"
+	- (MAIN) Company/Organization section
+		- Name
+		- Billing Address
+		- City/Town
+		- ZIP Code
+		- Country
+		
+		> Contacts 
+			**Must be able to add/interact with multiple contacts**
+			- Name
+			- Email Address
+			- Alias(es)
+			- Password
+			- Phone Numbers
+				- Work
+				- Home
+				- Fax
+				- Cell
+				- 800
+				
+		> Projects
+			**Must be able to add/interact with multiple projects**
+			- Hosting Start Date
+			- Hosting End Date
+			- Payment (Yearly/Monthly)
+			- Web Hosting Cost
+			- Design Cost
+			- Domain Exp. Date
+			- Web Address
+			- Wordpress Address
+			- Wordpress Login
+			- Wordpress Password
+			- WooCommerce Name
+			- WooCommerce Password
+			- WooCommerce Serial
+			
+		> Comments Section
+		
+======DB======
+	> SQLite
+		- Possibly 4 tables
+			- Merchant, Projects, Contacts, Company/Organization
